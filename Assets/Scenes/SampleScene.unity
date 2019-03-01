@@ -257,7 +257,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 534669902}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.938, y: 4.584, z: -13.6}
+  m_LocalPosition: {x: 0, y: 0, z: -13.71}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -339,7 +339,7 @@ PrefabInstance:
     - target: {fileID: 5338452627954446393, guid: 80b803f0ecbc87643b765ca2e6182fa9,
         type: 3}
       propertyPath: m_Name
-      value: Battlefield
+      value: BattlefieldManager
       objectReference: {fileID: 0}
     - target: {fileID: 7608113817951545548, guid: 80b803f0ecbc87643b765ca2e6182fa9,
         type: 3}
@@ -396,6 +396,27 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 384221582822821840, guid: 80b803f0ecbc87643b765ca2e6182fa9,
+        type: 3}
+      propertyPath: characterPrefabs.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 384221582822821840, guid: 80b803f0ecbc87643b765ca2e6182fa9,
+        type: 3}
+      propertyPath: hexGridWidth
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 384221582822821840, guid: 80b803f0ecbc87643b765ca2e6182fa9,
+        type: 3}
+      propertyPath: hexGridHeight
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 384221582822821840, guid: 80b803f0ecbc87643b765ca2e6182fa9,
+        type: 3}
+      propertyPath: characterPrefabs.Array.data[0]
+      value: 
+      objectReference: {fileID: 6554918176983098768, guid: a3512feefb03c5d42a922748e93c74ad,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 80b803f0ecbc87643b765ca2e6182fa9, type: 3}
 --- !u!1 &1673335088

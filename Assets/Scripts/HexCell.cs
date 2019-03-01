@@ -16,7 +16,7 @@ public class HexCell : MonoBehaviour
 
     [SerializeField]
     public HexCell[] neighbors = new HexCell[6];
-    
+
 
     // Start is called before the first frame update
     void Start()
@@ -43,14 +43,14 @@ public class HexCell : MonoBehaviour
 
         // if(hit2D.collider != null){
         //     if(Input.GetMouseButtonDown(0)){
-                
+
         //         HexCell hexE = this.GetNeighbor(HexDirection.E);
         //         hexE.GetComponentInChildren<SpriteRenderer>().material.color = Color.red;
 
         //         // HexCell hexE = neighbors[(int)HexDirection.E];
         //         // SpriteRenderer srE = hexE.GetComponentInChildren<SpriteRenderer>();
         //         // srE.color = Color.red;
-                
+
         //     }
         // }
     }

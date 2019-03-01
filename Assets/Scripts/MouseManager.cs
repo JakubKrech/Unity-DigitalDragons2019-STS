@@ -74,8 +74,6 @@ public class MouseManager : MonoBehaviour
                         Debug.Log("CHARACTER RELEASED AT " + hex.name + "!");
 
                         Vector3 newCharPosition = hex.transform.position;
-                        newCharPosition.x += 0.1f;
-                        newCharPosition.y += 0.2f;
                         newCharPosition.z = -0.01f;
 
                         movedChar.transform.position = newCharPosition;

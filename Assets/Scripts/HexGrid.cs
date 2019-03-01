@@ -6,8 +6,8 @@ using TMPro; //TextMeshPro
 public class HexGrid : MonoBehaviour
 {
     public HexCell hexPrefab;
-    public int height = 7; // height i width maja byc nieparzyste
-    public int width = 11;
+    int height; // height i width maja byc nieparzyste
+    int width;
 
     [SerializeField]
     public List<HexCell> cells;
@@ -19,7 +19,7 @@ public class HexGrid : MonoBehaviour
     {
         cells = new List<HexCell>();
 
-        GenerateGrid();
+        //GenerateGrid();
     }
 
     // Start is called before the first frame update
@@ -34,6 +34,13 @@ public class HexGrid : MonoBehaviour
    
     }
 
+    public void Create(int w, int h)
+    {
+        height = h;
+        width = w;
+        GenerateGrid();
+    }
+
     void GenerateGrid()
     {
         for (int y = height / 2; y > 0 ; y--)
@@ -44,7 +51,6 @@ public class HexGrid : MonoBehaviour
 
                 float xPos = x * xOffset + x_row_offset;
                 
-                //GameObject hex = (GameObject)Instantiate(hexPrefab, new Vector3(xPos, (height / 2 - y) * yOffset, 0), Quaternion.identity);
                 HexCell hex = (HexCell)Instantiate(hexPrefab, new Vector3(xPos, (height / 2 - y) * yOffset, 0), Quaternion.identity);
 
                 int xCoord = x;
@@ -130,7 +136,6 @@ public class HexGrid : MonoBehaviour
         Debug.LogError("Function GetCellByCoords failed to find hex of coordinates (" + x + "," + y + ") in cells list!");
         return cells[0];
     }
-
     void Update_E_W_Neighbors(HexCell hex, int width, int height)
     {
         if(hex.x > 0) { // skip leftmost hexes
@@ -170,5 +175,11 @@ public class HexGrid : MonoBehaviour
             hex.SetNeighbor(HexDirection.SW, southwestNeighbor);
             southwestNeighbor.SetNeighbor(HexDirection.NE, hex);
         }
+    }
+
+    public Vector3 GetGridCenteredPosition()
+    {
+        HexCell middleHex = GetHexByCoords(width / 2, height / 2);
+        return new Vector3(middleHex.transform.position.x, middleHex.transform.position.y, 0);
     }
 }
