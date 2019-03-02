@@ -11,7 +11,8 @@ public class HexCell : MonoBehaviour
 {
     [SerializeField]
     public int x, y;
-    Material material;
+    public bool occupied = false;
+    Material textMesh;//, innerMaterial, borderMaterial;
     SpriteRenderer sr;
 
     [SerializeField]
@@ -21,11 +22,12 @@ public class HexCell : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Material textMesh = gameObject.GetComponentInChildren<MeshRenderer>().material;
-        textMesh.renderQueue = 3002;
+        textMesh = gameObject.GetComponentInChildren<MeshRenderer>().material;
+        textMesh.renderQueue = 3005;
 
-        material = gameObject.GetComponentInChildren<SpriteRenderer>().material;
-        material.renderQueue = 3001; // without it hexes dissapear while moving the camera
+        //borderMaterial = GameObject.Find("HexBorder").GetComponent<SpriteRenderer>().material;
+
+        //innerMaterial = GameObject.Find("HexInner").GetComponent<SpriteRenderer>().material;
 
         sr = gameObject.GetComponentInChildren<SpriteRenderer>();
         sr.color = new Color(1f,1f,1f,0.4f);

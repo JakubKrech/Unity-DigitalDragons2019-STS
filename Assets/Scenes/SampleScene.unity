@@ -136,7 +136,7 @@ Light:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 170076733}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 8
   m_Type: 1
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
@@ -399,12 +399,12 @@ PrefabInstance:
     - target: {fileID: 384221582822821840, guid: 80b803f0ecbc87643b765ca2e6182fa9,
         type: 3}
       propertyPath: characterPrefabs.Array.size
-      value: 1
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 384221582822821840, guid: 80b803f0ecbc87643b765ca2e6182fa9,
         type: 3}
       propertyPath: hexGridWidth
-      value: 11
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 384221582822821840, guid: 80b803f0ecbc87643b765ca2e6182fa9,
         type: 3}
@@ -416,6 +416,30 @@ PrefabInstance:
       propertyPath: characterPrefabs.Array.data[0]
       value: 
       objectReference: {fileID: 6554918176983098768, guid: a3512feefb03c5d42a922748e93c74ad,
+        type: 3}
+    - target: {fileID: 384221582822821840, guid: 80b803f0ecbc87643b765ca2e6182fa9,
+        type: 3}
+      propertyPath: characterPrefabs.Array.data[1]
+      value: 
+      objectReference: {fileID: 289513373206705934, guid: b2fc97fa7de8cec43b8a41b92288e411,
+        type: 3}
+    - target: {fileID: 384221582822821840, guid: 80b803f0ecbc87643b765ca2e6182fa9,
+        type: 3}
+      propertyPath: characterPrefabs.Array.data[2]
+      value: 
+      objectReference: {fileID: 289513373206705934, guid: 0419c24b9c04bbc47a8af1ed3271fd26,
+        type: 3}
+    - target: {fileID: 384221582822821840, guid: 80b803f0ecbc87643b765ca2e6182fa9,
+        type: 3}
+      propertyPath: characterPrefabs.Array.data[3]
+      value: 
+      objectReference: {fileID: 289513373206705934, guid: efdfd19fd21cf6843900f032c31608a4,
+        type: 3}
+    - target: {fileID: 384221582822821840, guid: 80b803f0ecbc87643b765ca2e6182fa9,
+        type: 3}
+      propertyPath: canvasPrefab
+      value: 
+      objectReference: {fileID: 8808066215110869456, guid: ba0f16049b877684395b76ba39cbeaf9,
         type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 80b803f0ecbc87643b765ca2e6182fa9, type: 3}

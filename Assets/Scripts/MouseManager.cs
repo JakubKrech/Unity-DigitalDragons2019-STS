@@ -71,14 +71,24 @@ public class MouseManager : MonoBehaviour
                 if(Input.GetMouseButtonUp(0)){
                     if(moving){
                         HexCell hex = hit2D.collider.transform.parent.gameObject.GetComponent<HexCell>();
-                        Debug.Log("CHARACTER RELEASED AT " + hex.name + "!");
 
-                        Vector3 newCharPosition = hex.transform.position;
-                        newCharPosition.z = -0.01f;
+                        if(!hex.occupied){
+                            Debug.Log("CHARACTER " + movedChar.name + " moved from " + movedChar.hexCell.name + " to " + hex.name + "!");
 
-                        movedChar.transform.position = newCharPosition;
-                        moving = false;
-                        movedChar = null;
+                            movedChar.hexCell.occupied = false;
+                            movedChar.hexCell = hex;
+                            hex.occupied = true;
+                            Vector3 newCharPosition = new Vector3(movedChar.hexCell.transform.position.x, movedChar.hexCell.transform.position.y, -0.01f);
+                            movedChar.transform.transform.position = newCharPosition;
+                            
+                            moving = false;
+                            movedChar = null;
+                        }
+                        else 
+                        {
+                            Debug.Log("HexCell already occupied!");
+                            moving = false;
+                        }
                     }
                     else moving = false;
                 }
