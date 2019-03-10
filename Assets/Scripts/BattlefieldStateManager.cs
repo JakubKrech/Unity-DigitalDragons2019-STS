@@ -11,7 +11,7 @@ public class BattlefieldStateManager : MonoBehaviour
     public BattlefieldStateMachine currentState = BattlefieldStateMachine.WAIT;
     public List<Character> CharactersByInitiative;
     //int activeCharacterNumber = 0;
-    public Character activeCharacter;
+    //public Character activeCharacter;
 
     void Start()
     {
@@ -34,12 +34,16 @@ public class BattlefieldStateManager : MonoBehaviour
 
             case(BattlefieldStateMachine.PERFORMTURN):
                     if(CharactersByInitiative.Any()){
-                        //if(CharactersByInitiative[0].playerControlled){
+                        if(CharactersByInitiative[0].playerControlled){
+                            currentState = BattlefieldStateMachine.WAIT;
                             CharactersByInitiative[0].characterState = Character.CharacterStateMachine.CHOOSEACTION;
                             setUIToActiveCharacter();
+                        }
+                        else{
                             currentState = BattlefieldStateMachine.WAIT;
-                        //}
-                        //else  CharactersByInitiative[0].performAITurn();
+                            CharactersByInitiative[0].performAITurn();
+                        }
+                        
                     }
                     else currentState = BattlefieldStateMachine.ENDTURN;
                 break;

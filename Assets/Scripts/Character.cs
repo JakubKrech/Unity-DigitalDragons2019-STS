@@ -13,6 +13,7 @@ public class Character : MonoBehaviour
     public HexCell hexCell;
     public enum CharacterStateMachine{ WAIT, CHOOSEACTION, PERFORMACTION, ENDTURN }
     public CharacterStateMachine characterState = CharacterStateMachine.WAIT;
+    BattlefieldStateManager BSM;
 
     /// Awake is called when the script instance is being loaded.
     void Awake()
@@ -24,7 +25,7 @@ public class Character : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        BSM = GameObject.Find("BattlefieldStateManager").GetComponent<BattlefieldStateManager>();
     }
 
     // Update is called once per frame
@@ -38,7 +39,7 @@ public class Character : MonoBehaviour
 
             case(CharacterStateMachine.CHOOSEACTION):
                     Debug.Log("Turn of character: " + this.charName);
-                    
+                    //handle player input regarding actions to be taken by character
 
                     characterState = CharacterStateMachine.WAIT;
                 break;
@@ -63,6 +64,8 @@ public class Character : MonoBehaviour
 
     public void performAITurn()
     {
-
+        Debug.Log("AI Controlled Character " + this.charName + " completes his turn now");
+        BSM.CharactersByInitiative.RemoveAt(0);
+        BSM.currentState = BattlefieldStateManager.BattlefieldStateMachine.PERFORMTURN;
     }
 }
