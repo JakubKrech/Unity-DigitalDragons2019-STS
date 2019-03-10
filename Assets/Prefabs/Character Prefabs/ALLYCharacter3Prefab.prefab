@@ -544,7 +544,7 @@ GameObject:
   - component: {fileID: 299107042430837113}
   - component: {fileID: 289513373206705934}
   m_Layer: 0
-  m_Name: CharacterThreePrefab
+  m_Name: ALLYCharacter3Prefab
   m_TagString: Character
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -577,11 +577,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35d905b051b28fa48a26d5ae9f3d0e12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  charName: PlaceholderCharName
+  playerControlled: 1
+  alive: 1
+  charName: Ally 3
   level: 1
   health: 1
   mana: 1
+  actionPoints: 4
   strength: 1
   agility: 1
   power: 1
-  initiative: 1
+  initiative: 12
+  hexCell: {fileID: 0}

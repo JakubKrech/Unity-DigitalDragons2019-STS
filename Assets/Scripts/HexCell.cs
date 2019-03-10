@@ -9,11 +9,18 @@ public enum HexDirection {
 
 public class HexCell : MonoBehaviour
 {
+    [Header("Character Turn Info")]
+    public Character occupiedBy;
+    public bool active = false;
+
+
+    [Header("Hex Info")]
+
     [SerializeField]
     public int x, y;
     public bool occupied = false;
     Material textMesh;//, innerMaterial, borderMaterial;
-    SpriteRenderer sr;
+    public SpriteRenderer sr;
 
     [SerializeField]
     public HexCell[] neighbors = new HexCell[6];

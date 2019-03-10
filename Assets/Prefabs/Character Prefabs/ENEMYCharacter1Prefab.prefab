@@ -577,11 +577,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35d905b051b28fa48a26d5ae9f3d0e12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  charName: PlaceholderCharName
+  playerControlled: 0
+  alive: 1
+  charName: Enemy 1
   level: 1
   health: 1
   mana: 1
+  actionPoints: 0
   strength: 1
   agility: 1
   power: 1
-  initiative: 1
+  initiative: 22
+  hexCell: {fileID: 0}

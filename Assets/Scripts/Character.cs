@@ -4,11 +4,15 @@ using UnityEngine;
 
 public class Character : MonoBehaviour
 {
-    public  string charName;
+    public bool playerControlled;
+    public bool alive = true;
+    public string charName;
     public int level, health, mana, actionPoints;
     public int strength, agility, power, initiative;
     Material material;
     public HexCell hexCell;
+    // public enum CharacterStateMachine{ WAIT, PERFORMTURN }
+    // CharacterStateMachine characterState;
 
     /// Awake is called when the script instance is being loaded.
     void Awake()
@@ -20,7 +24,7 @@ public class Character : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        // characterState = CharacterStateMachine.WAIT;
     }
 
     // Update is called once per frame

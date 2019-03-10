@@ -44,15 +44,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35d905b051b28fa48a26d5ae9f3d0e12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerControlled: 1
   charName: Tanky Guy
   level: 1
   health: 200
   mana: 100
-  actionPoints: 0
+  actionPoints: 10
   strength: 8
   agility: 2
   power: 1
   initiative: 4
+  hexCell: {fileID: 0}
 --- !u!1 &6554918177164636337
 GameObject:
   m_ObjectHideFlags: 0

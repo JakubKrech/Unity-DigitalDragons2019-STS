@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 
 /*
     1. Generating Battlefield
@@ -34,6 +35,12 @@ using UnityEngine.UI;
 
 public class BattlefieldManager : MonoBehaviour
 {
+    [Header("GameStateManager Info")]
+    public GameStateMachine currentState = GameStateMachine.INITIALIZEBATTLE;
+    public List<Character> activeCharsByInitiative;
+    int activeCharacterNumber = 0;
+    public Character activeCharacter;
+
     [Header("HexGrid Settings")]
     public HexGrid hexGridPrefab;
     private HexGrid hexGrid;
@@ -57,28 +64,67 @@ public class BattlefieldManager : MonoBehaviour
     public List<Character> characters;
     //private SpriteRenderer spriteRend;
     
-
+    public enum GameStateMachine{ INITIALIZEBATTLE, PRESTART, PERFORMTURN, WAIT, ENDTURN, RESULTSCREEN }
+    
 
     /// Awake is called when the script instance is being loaded
     void Awake()
     {
         InitializeHexGrid();
+        Debug.Log("HexGrid initialized");
         InitializeBackground();
+        Debug.Log("Background initialized");
         InitializeUICanvas();
+        Debug.Log("UICanvas initialized");
         PlaceCharactersOnTheGrid();
+        Debug.Log("Charaters initialized and placed on the default positions");
     }
 
     // Start is called before the first frame update
     void Start()
     {
-       ChooseStartingLocations();
-       Debug.Log("FINISHED"); 
+       Debug.Log("Battlefield Initialization Completed");
+       currentState = GameStateMachine.PRESTART;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        //TODO
+        // split turn state manager logic into other file 
+        // zrobić oddzielne state managery dla kazdego charactera, domyślnie mające wait i wlaczane z glownego
+        // jak glowny wlaczy jakis character, to siebie wlacza na wait
+
+        switch(currentState)
+        {
+            case(GameStateMachine.PRESTART):
+                    UpdateActiveCharsByInitiative();
+                    currentState = GameStateMachine.PERFORMTURN;
+                break;
+
+            case(GameStateMachine.PERFORMTURN):
+                    ChooseActiveCharacter();
+
+                    if(activeCharacter.playerControlled) PerformCharacterTurn(activeCharacter);
+                    else PerformAITurn(activeCharacter);
+
+                    //currentState = GameStateMachine.WAIT;
+                break;
+
+            case(GameStateMachine.WAIT):
+                    // idle
+                break;
+
+            case(GameStateMachine.ENDTURN):
+                    activeCharacterNumber = 0;
+                    UpdateActiveCharsByInitiative();
+                    currentState = GameStateMachine.PERFORMTURN;
+                break;
+
+            case(GameStateMachine.RESULTSCREEN):
+
+                break;
+        }
     }
 
     // BATTLEFIELD INITIALIZATION FUNCTIONS
@@ -106,10 +152,10 @@ public class BattlefieldManager : MonoBehaviour
         canvas.name = "UI Canvas";
         
         gameStatePanelText = GameObject.Find("GameStatePanelText").GetComponent<Text>();
-        gameStatePanelText.text = "ELO";
+        gameStatePanelText.text = "Jakis tekst, np mini opisik fabularny bosseła asdasasdasdasdasd";
         
         buttonMiddleBottomText = GameObject.Find("ButtonMiddleBottomText").GetComponent<Text>();
-        buttonMiddleBottomText.text = "DUPA";
+        buttonMiddleBottomText.text = "Click to start battle!";
 
         buttonMiddleBottom = GameObject.Find("ButtonMiddleBottom").GetComponent<Button>();
     }
@@ -131,34 +177,59 @@ public class BattlefieldManager : MonoBehaviour
         characters.Add(newChar);
 
         charPosition.occupied = true;
+        charPosition.occupiedBy = newChar;
     }
 
     // GAMEPLAY LOOP FUNCTIONS
 
-    void ChooseStartingLocations()
+    void UpdateActiveCharsByInitiative()
     {
-        foreach (var cell in hexGrid.cells)
+        foreach (var c in characters)
         {
-            if(cell.x < 2) {   
-                SpriteRenderer rend = cell.transform.GetChild(0).GetComponent<SpriteRenderer>();
-                Debug.Log(rend.color);
-                rend.color = Color.red;
-                Debug.Log(rend.color);
-            }
+            activeCharsByInitiative.Add(c);
         }
 
-        gameStatePanelText.text = "Choose starting location for your Characters!\nYou can place them on 2 leftmost rows.";
-        buttonMiddleBottomText.text = "Confirm starting locations";
+        activeCharsByInitiative.OrderBy(characters=>characters.initiative);
+        activeCharsByInitiative.Reverse();
 
-        // buttonMiddleBottom.onClick()
+        // foreach (var c in activeCharsByInitiative)
         // {
-
-        // }
-
-        // foreach (var cell in hexGrid.cells)
-        // {
-        //     if(cell.x < 2) cell.GetComponentInChildren<SpriteRenderer>().color = Color.white;
+        //     Debug.Log(c.charName + " " + c.initiative);
         // }
     }
 
+    void PerformCharacterTurn(Character character)
+    {
+        foreach (var hex in character.hexCell.neighbors)
+        {
+            hex.sr.color = Color.blue;
+        }
+        Debug.Log("TURN OF: " + character.charName);
+
+        
+
+        // foreach (var hex in character.hexCell.neighbors)
+        // {
+        //     hex.sr.color = Color.black;
+        // }
+    }
+
+    void PerformAITurn(Character character)
+    {
+        Debug.Log("AI " + character.charName + " WILL PERFORM TURN NOW");
+        activeCharacterNumber++;
+        currentState = GameStateMachine.PERFORMTURN;
+    }
+
+    void ChooseActiveCharacter()
+    {
+        if(activeCharacterNumber > activeCharsByInitiative.Count) currentState = GameStateMachine.ENDTURN;
+        else activeCharacter = activeCharsByInitiative[activeCharacterNumber];
+    }
+
+    IEnumerator PerformAction()
+    {
+
+        yield return null;
+    }
 }
