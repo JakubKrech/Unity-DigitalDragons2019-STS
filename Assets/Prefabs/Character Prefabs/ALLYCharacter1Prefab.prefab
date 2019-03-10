@@ -45,16 +45,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerControlled: 1
-  charName: Tanky Guy
+  alive: 1
+  charName: Ally 1
   level: 1
-  health: 200
-  mana: 100
+  maxHP: 250
+  currentHP: 118
+  maxMana: 120
+  currentMana: 85
   actionPoints: 10
   strength: 8
   agility: 2
   power: 1
   initiative: 4
   hexCell: {fileID: 0}
+  characterState: 0
 --- !u!1 &6554918177164636337
 GameObject:
   m_ObjectHideFlags: 0

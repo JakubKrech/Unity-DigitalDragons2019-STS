@@ -581,11 +581,14 @@ MonoBehaviour:
   alive: 1
   charName: Enemy 1
   level: 1
-  health: 1
-  mana: 1
+  maxHP: 666
+  currentHP: 444
+  maxMana: 300
+  currentMana: 273
   actionPoints: 0
   strength: 1
   agility: 1
   power: 1
   initiative: 22
   hexCell: {fileID: 0}
+  characterState: 0

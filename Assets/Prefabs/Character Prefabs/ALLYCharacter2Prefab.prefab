@@ -507,11 +507,14 @@ MonoBehaviour:
   alive: 1
   charName: Ally 2
   level: 1
-  health: 1
-  mana: 1
+  maxHP: 180
+  currentHP: 170
+  maxMana: 200
+  currentMana: 173
   actionPoints: 5
   strength: 1
   agility: 1
   power: 1
   initiative: 7
   hexCell: {fileID: 0}
+  characterState: 0
