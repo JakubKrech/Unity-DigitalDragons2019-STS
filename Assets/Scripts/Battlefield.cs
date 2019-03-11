@@ -38,14 +38,7 @@ public class Battlefield : MonoBehaviour
     [Header("Background Settings")]
     public GameObject backgroundPrefab;
     private GameObject background;
-    public Sprite backgroundImage;
-
-    // [Header("UI Settings")]
-    // public Canvas canvasPrefab;
-    // private Canvas canvas;
-    // private Text gameStatePanelText;
-    // private Text buttonMiddleBottomText;
-    // private Button buttonMiddleBottom;
+    //public Sprite backgroundImage;
 
     [Header("Characters Settings")]
     public int numberOfAllies = 3;
@@ -66,8 +59,6 @@ public class Battlefield : MonoBehaviour
         Debug.Log("HexGrid initialized");
         InitializeBackground();
         Debug.Log("Background initialized");
-        //InitializeUICanvas();
-        //Debug.Log("UICanvas initialized");
         PlaceCharactersOnTheGrid();
         Debug.Log("Charaters initialized and placed on the default positions");
     }
@@ -82,41 +73,7 @@ public class Battlefield : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //TODO
-        // split turn state manager logic into other file 
-        // zrobić oddzielne state managery dla kazdego charactera, domyślnie mające wait i wlaczane z glownego
-        // jak glowny wlaczy jakis character, to siebie wlacza na wait
-
-        // switch(currentState)
-        // {
-        //     case(GameStateMachine.PRESTART):
-        //             UpdateActiveCharsByInitiative();
-        //             currentState = GameStateMachine.PERFORMTURN;
-        //         break;
-
-        //     case(GameStateMachine.PERFORMTURN):
-        //             ChooseActiveCharacter();
-
-        //             if(activeCharacter.playerControlled) PerformCharacterTurn(activeCharacter);
-        //             else PerformAITurn(activeCharacter);
-
-        //             //currentState = GameStateMachine.WAIT;
-        //         break;
-
-        //     case(GameStateMachine.WAIT):
-        //             // idle
-        //         break;
-
-        //     case(GameStateMachine.ENDTURN):
-        //             activeCharacterNumber = 0;
-        //             UpdateActiveCharsByInitiative();
-        //             currentState = GameStateMachine.PERFORMTURN;
-        //         break;
-
-        //     case(GameStateMachine.RESULTSCREEN):
-
-        //         break;
-        // }
+       
     }
 
     // BATTLEFIELD INITIALIZATION FUNCTIONS
@@ -138,20 +95,6 @@ public class Battlefield : MonoBehaviour
         backgroundSR.material.renderQueue = 3001;
     }
 
-    // void InitializeUICanvas()
-    // {
-    //     canvas = (Canvas)Instantiate(canvasPrefab, this.transform.position, Quaternion.identity, this.transform);
-    //     canvas.name = "UI Canvas";
-        
-    //     gameStatePanelText = GameObject.Find("GameStatePanelText").GetComponent<Text>();
-    //     gameStatePanelText.text = "Jakis tekst, np mini opisik fabularny bosseła asdasasdasdasdasd";
-        
-    //     buttonMiddleBottomText = GameObject.Find("ButtonMiddleBottomText").GetComponent<Text>();
-    //     buttonMiddleBottomText.text = "Click to start battle!";
-
-    //     buttonMiddleBottom = GameObject.Find("ButtonMiddleBottom").GetComponent<Button>();
-    // }
-
     void PlaceCharactersOnTheGrid()
     {
         PlaceCharacter(hexGrid.GetHexByCoords(1, hexGridHeight / 2), characterPrefabs[0], "Ally Character 1");
@@ -172,56 +115,4 @@ public class Battlefield : MonoBehaviour
         charPosition.occupiedBy = newChar;
     }
 
-    // GAMEPLAY LOOP FUNCTIONS
-
-    // void UpdateActiveCharsByInitiative()
-    // {
-    //     foreach (var c in characters)
-    //     {
-    //         activeCharsByInitiative.Add(c);
-    //     }
-
-    //     activeCharsByInitiative.OrderBy(characters=>characters.initiative);
-    //     activeCharsByInitiative.Reverse();
-
-    //     // foreach (var c in activeCharsByInitiative)
-    //     // {
-    //     //     Debug.Log(c.charName + " " + c.initiative);
-    //     // }
-    // }
-
-    // void PerformCharacterTurn(Character character)
-    // {
-    //     foreach (var hex in character.hexCell.neighbors)
-    //     {
-    //         hex.sr.color = Color.blue;
-    //     }
-    //     Debug.Log("TURN OF: " + character.charName);
-
-        
-
-    //     // foreach (var hex in character.hexCell.neighbors)
-    //     // {
-    //     //     hex.sr.color = Color.black;
-    //     // }
-    // }
-
-    // void PerformAITurn(Character character)
-    // {
-    //     Debug.Log("AI " + character.charName + " WILL PERFORM TURN NOW");
-    //     activeCharacterNumber++;
-    //     currentState = GameStateMachine.PERFORMTURN;
-    // }
-
-    // void ChooseActiveCharacter()
-    // {
-    //     if(activeCharacterNumber > activeCharsByInitiative.Count) currentState = GameStateMachine.ENDTURN;
-    //     else activeCharacter = activeCharsByInitiative[activeCharacterNumber];
-    // }
-
-    // IEnumerator PerformAction()
-    // {
-
-    //     yield return null;
-    // }
 }

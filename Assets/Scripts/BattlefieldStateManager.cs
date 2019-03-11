@@ -9,7 +9,7 @@ public class BattlefieldStateManager : MonoBehaviour
     public Battlefield battlefield;
     public enum BattlefieldStateMachine{ PRESTART, PERFORMTURN, WAIT, ENDTURN, RESULTSCREEN }
     public BattlefieldStateMachine currentState = BattlefieldStateMachine.WAIT;
-    public List<Character> CharactersByInitiative;
+    public List<Character> CharactersByInitiative; //CharactersByInitiative[0] is currently active character
     //int activeCharacterNumber = 0;
     //public Character activeCharacter;
 
@@ -34,13 +34,13 @@ public class BattlefieldStateManager : MonoBehaviour
 
             case(BattlefieldStateMachine.PERFORMTURN):
                     if(CharactersByInitiative.Any()){
+                        setUIToActiveCharacter();
+                        currentState = BattlefieldStateMachine.WAIT;
+                        
                         if(CharactersByInitiative[0].playerControlled){
-                            currentState = BattlefieldStateMachine.WAIT;
                             CharactersByInitiative[0].characterState = Character.CharacterStateMachine.CHOOSEACTION;
-                            setUIToActiveCharacter();
                         }
                         else{
-                            currentState = BattlefieldStateMachine.WAIT;
                             CharactersByInitiative[0].performAITurn();
                         }
                         
@@ -86,5 +86,6 @@ public class BattlefieldStateManager : MonoBehaviour
         battlefield.UIManager.CharacterName.text = CharactersByInitiative[0].charName;
         battlefield.UIManager.updateHealthBar(CharactersByInitiative[0]);
         battlefield.UIManager.updateManaBar(CharactersByInitiative[0]);
+        battlefield.UIManager.updateOrderQueue(CharactersByInitiative);
     }
 }

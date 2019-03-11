@@ -7,10 +7,14 @@ public class Character : MonoBehaviour
     public bool playerControlled;
     public bool alive = true;
     public string charName;
-    public int level, maxHP, currentHP, maxMana, currentMana, actionPoints;
+    public int level, currentEXP;
+    public int maxHP, currentHP;
+    public int maxMana, currentMana;
+    public int maxActionPoints, currentActionPoints;
     public int strength, agility, power, initiative;
     Material material;
     public HexCell hexCell;
+    public Sprite characterAvatar;
     public enum CharacterStateMachine{ WAIT, CHOOSEACTION, PERFORMACTION, ENDTURN }
     public CharacterStateMachine characterState = CharacterStateMachine.WAIT;
     BattlefieldStateManager BSM;
@@ -64,7 +68,16 @@ public class Character : MonoBehaviour
 
     public void performAITurn()
     {
+        // Debug.Log("AI Controlled Character " + this.charName + " completes his turn now");
+        // BSM.CharactersByInitiative.RemoveAt(0);
+        // BSM.currentState = BattlefieldStateManager.BattlefieldStateMachine.PERFORMTURN;
+        StartCoroutine(SleepForSeconds(5));
+    }
+
+    IEnumerator SleepForSeconds(int s)
+    {
         Debug.Log("AI Controlled Character " + this.charName + " completes his turn now");
+        yield return new WaitForSeconds(5);
         BSM.CharactersByInitiative.RemoveAt(0);
         BSM.currentState = BattlefieldStateManager.BattlefieldStateMachine.PERFORMTURN;
     }

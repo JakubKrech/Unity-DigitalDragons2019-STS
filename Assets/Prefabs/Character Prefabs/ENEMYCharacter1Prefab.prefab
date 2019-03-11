@@ -591,4 +591,5 @@ MonoBehaviour:
   power: 1
   initiative: 22
   hexCell: {fileID: 0}
+  characterAvatar: {fileID: 21300000, guid: 3608effe468ccc542a93bee7c3e7522b, type: 3}
   characterState: 0
