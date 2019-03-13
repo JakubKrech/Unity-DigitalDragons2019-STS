@@ -87,5 +87,6 @@ public class BattlefieldStateManager : MonoBehaviour
         battlefield.UIManager.updateHealthBar(CharactersByInitiative[0]);
         battlefield.UIManager.updateManaBar(CharactersByInitiative[0]);
         battlefield.UIManager.updateOrderQueue(CharactersByInitiative);
+        battlefield.UIManager.updateAbilityBar(CharactersByInitiative[0]);
     }
 }

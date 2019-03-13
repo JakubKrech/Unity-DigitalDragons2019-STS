@@ -12,6 +12,7 @@ public class UIManager : MonoBehaviour
     public Slider ManaBar;
     public Text ManaBarText;
     public Image[] OrderQueue;
+    public Image[] AbilityBar;
 
     // Start is called before the first frame update
     void Start()
@@ -51,6 +52,14 @@ public class UIManager : MonoBehaviour
                 }
                 else OrderQueue[i].enabled = false;
             }
+        }
+    }
+
+    public void updateAbilityBar(Character character)
+    {
+        for(int i = 0; i < character.abilities.Count; i++)
+        {
+            AbilityBar[i].sprite = character.abilities[i].icon;
         }
     }
 }

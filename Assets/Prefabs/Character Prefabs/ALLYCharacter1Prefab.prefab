@@ -46,8 +46,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerControlled: 1
   alive: 1
+  characterState: 0
   charName: Ally 1
   level: 1
+  currentEXP: 0
   maxHP: 250
   currentHP: 118
   maxMana: 120
@@ -58,9 +60,13 @@ MonoBehaviour:
   agility: 2
   power: 1
   initiative: 4
+  armor: 0
+  critChance: 0
+  abilities: []
   hexCell: {fileID: 0}
   characterAvatar: {fileID: 21300000, guid: f6fadc0a2ad50f64bbd40f028d9748fe, type: 3}
-  characterState: 0
+  abilitiesPrefabs:
+  - {fileID: 2040185341777971373, guid: cf0c0615287e2e44293b3602669a20af, type: 3}
 --- !u!1 &6554918177164636337
 GameObject:
   m_ObjectHideFlags: 0
