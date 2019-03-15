@@ -89,7 +89,8 @@ public class Battlefield : MonoBehaviour
 
     void InitializeBackground()
     {
-        background = (GameObject)Instantiate(backgroundPrefab, new Vector3(0,0,0.9f), Quaternion.identity, this.transform);
+        //background = (GameObject)Instantiate(backgroundPrefab, new Vector3(0,0,0.9f), Quaternion.identity, this.transform);
+        background = (GameObject)Instantiate(backgroundPrefab, new Vector3(0,0,0), Quaternion.identity, this.transform);
         background.name = "Background";
         SpriteRenderer backgroundSR = background.GetComponent<SpriteRenderer>();
         backgroundSR.material.renderQueue = 3001;

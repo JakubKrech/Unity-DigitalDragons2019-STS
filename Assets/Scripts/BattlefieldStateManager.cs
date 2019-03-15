@@ -84,6 +84,7 @@ public class BattlefieldStateManager : MonoBehaviour
     public void setUIToActiveCharacter()
     {
         battlefield.UIManager.CharacterName.text = CharactersByInitiative[0].charName;
+        battlefield.UIManager.CharacterAvatar.sprite = CharactersByInitiative[0].characterAvatar;
         battlefield.UIManager.updateHealthBar(CharactersByInitiative[0]);
         battlefield.UIManager.updateManaBar(CharactersByInitiative[0]);
         battlefield.UIManager.updateOrderQueue(CharactersByInitiative);

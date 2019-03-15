@@ -7,6 +7,7 @@ using System.Linq;
 public class UIManager : MonoBehaviour
 {
     public Text CharacterName;
+    public Image CharacterAvatar;
     public Slider HealthBar;
     public Text HealthBarText;
     public Slider ManaBar;
