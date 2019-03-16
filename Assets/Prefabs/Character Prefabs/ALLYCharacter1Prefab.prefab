@@ -54,8 +54,9 @@ MonoBehaviour:
   currentHP: 118
   maxMana: 120
   currentMana: 85
-  maxActionPoints: 0
-  currentActionPoints: 0
+  maxActionPoints: 3
+  currentActionPoints: 3
+  actionPointsRegen: 2
   strength: 8
   agility: 2
   power: 1

@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class BattlefieldStateManager : MonoBehaviour
 {
     public Battlefield battlefield;
+    public MouseStateManager MSM;
     public enum BattlefieldStateMachine{ PRESTART, PERFORMTURN, WAIT, ENDTURN, RESULTSCREEN }
     public BattlefieldStateMachine currentState = BattlefieldStateMachine.WAIT;
     public List<Character> CharactersByInitiative; //CharactersByInitiative[0] is currently active character
@@ -34,7 +35,8 @@ public class BattlefieldStateManager : MonoBehaviour
 
             case(BattlefieldStateMachine.PERFORMTURN):
                     if(CharactersByInitiative.Any()){
-                        setUIToActiveCharacter();
+                        battlefield.UIManager.updateOrderQueue(CharactersByInitiative);
+                        battlefield.UIManager.updateUIToChosenCharacter(CharactersByInitiative[0]);
                         currentState = BattlefieldStateMachine.WAIT;
                         
                         if(CharactersByInitiative[0].playerControlled){
@@ -49,6 +51,8 @@ public class BattlefieldStateManager : MonoBehaviour
                 break;
 
             case(BattlefieldStateMachine.ENDTURN):
+                    Debug.Log("-----NEW TURN HAS STARTED-----");
+                    UpdateCharactersStats();
                     FillActiveCharsByInitiative();
                     // wypisanie czegos typu "TURN 5" na srodku ekranu?
                     currentState = BattlefieldStateMachine.PERFORMTURN;
@@ -67,7 +71,7 @@ public class BattlefieldStateManager : MonoBehaviour
 
     void FillActiveCharsByInitiative()
     {
-        foreach (var c in battlefield.characters)
+        foreach (Character c in battlefield.characters)
         {
             if (c.alive) CharactersByInitiative.Add(c);
         }
@@ -75,19 +79,20 @@ public class BattlefieldStateManager : MonoBehaviour
         CharactersByInitiative.OrderBy(characters=>characters.initiative);
         CharactersByInitiative.Reverse();
 
-        foreach (var c in CharactersByInitiative)
+        foreach (Character c in CharactersByInitiative)
         {
             Debug.Log(c.charName + ", initiative: " + c.initiative);
         }
     }
 
-    public void setUIToActiveCharacter()
+    void UpdateCharactersStats()
     {
-        battlefield.UIManager.CharacterName.text = CharactersByInitiative[0].charName;
-        battlefield.UIManager.CharacterAvatar.sprite = CharactersByInitiative[0].characterAvatar;
-        battlefield.UIManager.updateHealthBar(CharactersByInitiative[0]);
-        battlefield.UIManager.updateManaBar(CharactersByInitiative[0]);
-        battlefield.UIManager.updateOrderQueue(CharactersByInitiative);
-        battlefield.UIManager.updateAbilityBar(CharactersByInitiative[0]);
+        foreach (Character c in battlefield.characters)
+        {
+            // Update Action Points
+            c.currentActionPoints += c.actionPointsRegen;
+            if(c.currentActionPoints > c.maxActionPoints) c.currentActionPoints = c.maxActionPoints;
+        }
     }
+
 }

@@ -6,14 +6,22 @@ using System.Linq;
 
 public class UIManager : MonoBehaviour
 {
+    [Header("Character Window")]
     public Text CharacterName;
     public Image CharacterAvatar;
+    public Text CharacterLevel;
     public Slider HealthBar;
     public Text HealthBarText;
     public Slider ManaBar;
     public Text ManaBarText;
+    [Header("Queue")]
     public Image[] OrderQueue;
+    [Header("Ability Bar")]
+    public Text ActionPointsText;
+    public Text ActionPointsRegenText;
     public Image[] AbilityBar;
+    public Button EndTurnButton;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -24,7 +32,7 @@ public class UIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+    
     }
 
     public void updateHealthBar(Character character)
@@ -58,9 +66,22 @@ public class UIManager : MonoBehaviour
 
     public void updateAbilityBar(Character character)
     {
+        ActionPointsText.text = character.currentActionPoints + " / " + character.maxActionPoints;
+        ActionPointsRegenText.text = "+" + character.actionPointsRegen + " PER\nTURN";
+
         for(int i = 0; i < character.abilities.Count; i++)
         {
             AbilityBar[i].sprite = character.abilities[i].icon;
         }
+    }
+
+    public void updateUIToChosenCharacter(Character character)
+    {
+        CharacterName.text = character.charName;
+        CharacterAvatar.sprite = character.characterAvatar;
+        CharacterLevel.text = "LEVEL " + character.level;
+        updateHealthBar(character);
+        updateManaBar(character);
+        updateAbilityBar(character);
     }
 }

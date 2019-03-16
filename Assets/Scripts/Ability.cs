@@ -8,6 +8,7 @@ public class Ability : MonoBehaviour
     public string abilityName;
     public int manaCost = 0;
     public int healthCost = 0;
+    public int actionPointsCost = 0;
     public int cooldown;
     public int baseDamage = 0;
     public float strengthMultiplier = 0;

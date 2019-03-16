@@ -24,7 +24,7 @@ public class HexCell : MonoBehaviour
 
     [SerializeField]
     public HexCell[] neighbors = new HexCell[6];
-
+    public SpriteRenderer HexBorder;
 
     // Start is called before the first frame update
     void Start()

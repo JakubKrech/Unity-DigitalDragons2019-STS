@@ -7,7 +7,7 @@ public class Character : MonoBehaviour
     [Header("Character Info")]
     public bool playerControlled;
     public bool alive = true;
-    public enum CharacterStateMachine{ WAIT, CHOOSEACTION, PERFORMACTION, ENDTURN }
+    public enum CharacterStateMachine{ WAIT, CHOOSEACTION, AFTERACTION, ENDTURN }
     public CharacterStateMachine characterState = CharacterStateMachine.WAIT;
 
     [Header("Character Stats")]
@@ -15,7 +15,7 @@ public class Character : MonoBehaviour
     public int level, currentEXP;
     public int maxHP, currentHP;
     public int maxMana, currentMana;
-    public int maxActionPoints, currentActionPoints;
+    public int maxActionPoints, currentActionPoints, actionPointsRegen;
     public int strength; // bonus maxHP + damage
     public int agility; // bonus critChance + maxActionPoints
     public int power; // bonus mana + damage
@@ -57,41 +57,42 @@ public class Character : MonoBehaviour
 
             case(CharacterStateMachine.CHOOSEACTION):
                     Debug.Log("Turn of character: " + this.charName);
+                    ActivateMovableTiles();
                     //handle player input regarding actions to be taken by character
+                    BSM.MSM.currentMouseState = MouseStateManager.MouseStateMachine.CHOOSEACTION;
 
                     characterState = CharacterStateMachine.WAIT;
                 break;
 
-            case(CharacterStateMachine.PERFORMACTION):
-                    
+            case(CharacterStateMachine.AFTERACTION):
+                    if(currentActionPoints == 0) 
+                    {
+                        Debug.Log("Character " + charName + " ran out of Action Points! Turn ended!");
+                        characterState = CharacterStateMachine.ENDTURN;
+                    }
+                    else characterState = CharacterStateMachine.CHOOSEACTION;
                 break;
 
             case(CharacterStateMachine.ENDTURN):
-                    
+                    DeActivateMovableTiles();
+                    Debug.Log(charName + " has ended his turn!");
+                    characterState = CharacterStateMachine.WAIT;
+                    BSM.CharactersByInitiative.RemoveAt(0);
+                    BSM.currentState = BattlefieldStateManager.BattlefieldStateMachine.PERFORMTURN;
                 break;
         }
     }
 
 
-    // OnMouseDown is called when the user has pressed the mouse button while
-    // over the GUIElement or Collider.
-    void OnMouseDown()
-    {
-
-    }
-
     public void performAITurn()
     {
-        // Debug.Log("AI Controlled Character " + this.charName + " completes his turn now");
-        // BSM.CharactersByInitiative.RemoveAt(0);
-        // BSM.currentState = BattlefieldStateManager.BattlefieldStateMachine.PERFORMTURN;
-        StartCoroutine(SleepForSeconds(5));
+        StartCoroutine(SleepForSecondsAITurn(5));
     }
 
-    IEnumerator SleepForSeconds(int s)
+    IEnumerator SleepForSecondsAITurn(int s)
     {
         Debug.Log("AI Controlled Character " + this.charName + " completes his turn now");
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(2);
         BSM.CharactersByInitiative.RemoveAt(0);
         BSM.currentState = BattlefieldStateManager.BattlefieldStateMachine.PERFORMTURN;
     }
@@ -105,5 +106,51 @@ public class Character : MonoBehaviour
             ab.name = ab.abilityName;
             abilities.Add(ab);
         }
+    }
+
+    void ActivateMovableTiles()
+    {
+        foreach (HexCell neighbor in hexCell.neighbors)
+        {
+            if(neighbor != null && !neighbor.occupied) 
+            {
+                neighbor.HexBorder.color = Color.green;
+                neighbor.active = true;
+            }
+            else if(neighbor != null && neighbor.occupiedBy.playerControlled)
+                neighbor.HexBorder.color = Color.blue;
+            else if(neighbor != null && !neighbor.occupiedBy.playerControlled)
+                neighbor.HexBorder.color = Color.red;
+        }
+    }
+    void DeActivateMovableTiles()
+    {
+        foreach (HexCell neighbor in hexCell.neighbors)
+        {
+            if(neighbor != null) 
+            {
+                neighbor.HexBorder.color = Color.black;
+                neighbor.active = false;
+            }
+        }
+    }
+    public void MoveCharacter(HexCell destination)
+    {
+        DeActivateMovableTiles();
+
+        hexCell.occupied = false;
+        hexCell.occupiedBy = null;
+
+        hexCell = destination;
+        
+        hexCell.occupied = true;
+        hexCell.occupiedBy = this;
+
+        this.transform.position = hexCell.transform.position;
+
+        // moving consumes one Action Point
+        currentActionPoints--;
+
+        ActivateMovableTiles();
     }
 }
