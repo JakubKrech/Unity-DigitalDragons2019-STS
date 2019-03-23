@@ -99,10 +99,14 @@ public class Character : MonoBehaviour
 
     void InitializeAbilities()
     {
+         GameObject abilitiesParentObject = new GameObject();
+        abilitiesParentObject.transform.parent = this.transform;
+        abilitiesParentObject.name = "Abilities";
+
         abilities = new List<Ability>();
 
         for(int i = 0; i < abilitiesPrefabs.Count; i++){
-            Ability ab = (Ability)Instantiate(abilitiesPrefabs[i], new Vector3(0,0,0), Quaternion.identity, this.transform);
+            Ability ab = (Ability)Instantiate(abilitiesPrefabs[i], new Vector3(0,0,0), Quaternion.identity, abilitiesParentObject.transform);
             ab.name = ab.abilityName;
             abilities.Add(ab);
         }
@@ -115,12 +119,18 @@ public class Character : MonoBehaviour
             if(neighbor != null && !neighbor.occupied) 
             {
                 neighbor.HexBorder.color = Color.green;
+                neighbor.HexBorder.enabled = true;
                 neighbor.active = true;
+                
             }
-            else if(neighbor != null && neighbor.occupiedBy.playerControlled)
+            else if(neighbor != null && neighbor.occupiedBy.playerControlled){
                 neighbor.HexBorder.color = Color.blue;
-            else if(neighbor != null && !neighbor.occupiedBy.playerControlled)
+                neighbor.HexBorder.enabled = true;
+            }
+            else if(neighbor != null && !neighbor.occupiedBy.playerControlled){
                 neighbor.HexBorder.color = Color.red;
+                neighbor.HexBorder.enabled = true;
+            }
         }
     }
     void DeActivateMovableTiles()
@@ -130,6 +140,7 @@ public class Character : MonoBehaviour
             if(neighbor != null) 
             {
                 neighbor.HexBorder.color = Color.black;
+                neighbor.HexBorder.enabled = false;
                 neighbor.active = false;
             }
         }
@@ -151,6 +162,6 @@ public class Character : MonoBehaviour
         // moving consumes one Action Point
         currentActionPoints--;
 
-        ActivateMovableTiles();
+        //ActivateMovableTiles();
     }
 }

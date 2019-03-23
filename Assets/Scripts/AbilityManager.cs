@@ -20,8 +20,8 @@ public class AbilityManager : MonoBehaviour
             // abilityName, manaCost, healthCost, cooldown, baseDamage,
             // strengthMultiplier, powerMultiplier, agilityMultiplier, range
 
-            new Ability("Melee Basic Attack", 0, 0, 1, 10, 3, 0, 0, 1),
-            new Ability("Shield Bash", 10, 0, 3, 15, 5, 0, 0, 1)
+            new Ability("Melee Basic Attack", 0, 0, 1, 10, 3, 0, 0, false),
+            new Ability("Shield Bash", 10, 0, 3, 15, 5, 0, 0, false)
 
 
         };

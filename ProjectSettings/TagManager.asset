@@ -48,6 +48,30 @@ TagManager:
   - name: HexGrid
     uniqueID: 3988301659
     locked: 0
+  - name: Row9
+    uniqueID: 1202671349
+    locked: 0
+  - name: Row8
+    uniqueID: 3383476735
+    locked: 0
+  - name: Row7
+    uniqueID: 4042600617
+    locked: 0
+  - name: Row6
+    uniqueID: 552545643
+    locked: 0
+  - name: Row5
+    uniqueID: 1202022285
+    locked: 0
+  - name: Row4
+    uniqueID: 3506345719
+    locked: 0
+  - name: Row3
+    uniqueID: 208191463
+    locked: 0
+  - name: Row2
+    uniqueID: 4014411885
+    locked: 0
   - name: Row1
     uniqueID: 3538936185
     locked: 0

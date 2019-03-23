@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2820907059277688317
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6865593106482361103}
+  - component: {fileID: 319059931983957668}
+  m_Layer: 0
+  m_Name: HoneyHeal
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6865593106482361103
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2820907059277688317}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &319059931983957668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2820907059277688317}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eac0592a815f07b44959ce294f2d9cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  locked: 0
+  abilityName: HoneyHeal
+  manaCost: 0
+  healthCost: 0
+  actionPointsCost: 0
+  cooldown: 0
+  baseDamage: 0
+  strengthMultiplier: 0
+  powerMultiplier: 0
+  agilityMultiplier: 0
+  range: 1
+  applyStun: 0
+  removeStun: 0
+  applyImmobilize: 0
+  removeImmobilize: 0
+  icon: {fileID: 21300000, guid: c2ee79455ee2e3a4bb290bd82598e30a, type: 3}

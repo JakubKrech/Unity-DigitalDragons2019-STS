@@ -43,14 +43,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eac0592a815f07b44959ce294f2d9cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  abilityName: PlaceholderAbility
+  abilityName: AbilityPrefab
   manaCost: 0
   healthCost: 0
-  actionPointsCost: 1
-  cooldown: 1
-  baseDamage: 10
-  strengthMultiplier: 3
-  powerMultiplier: 2
-  agilityMultiplier: 1
+  actionPointsCost: 0
+  cooldown: 0
+  baseDamage: 0
+  strengthMultiplier: 0
+  powerMultiplier: 0
+  agilityMultiplier: 0
   range: 1
   icon: {fileID: 21300000, guid: c450d4049974dad47895761480d08fec, type: 3}

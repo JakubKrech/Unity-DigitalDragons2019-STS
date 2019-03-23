@@ -35,11 +35,6 @@ public class Battlefield : MonoBehaviour
     private HexGrid hexGrid;
     public int hexGridWidth, hexGridHeight;
 
-    [Header("Background Settings")]
-    public GameObject backgroundPrefab;
-    private GameObject background;
-    //public Sprite backgroundImage;
-
     [Header("Characters Settings")]
     public int numberOfAllies = 3;
     public Character[] characterPrefabs;
@@ -57,8 +52,6 @@ public class Battlefield : MonoBehaviour
     {
         InitializeHexGrid();
         Debug.Log("HexGrid initialized");
-        InitializeBackground();
-        Debug.Log("Background initialized");
         PlaceCharactersOnTheGrid();
         Debug.Log("Charaters initialized and placed on the default positions");
     }
@@ -87,28 +80,23 @@ public class Battlefield : MonoBehaviour
         hexGrid.name = "HexGrid";
     }
 
-    void InitializeBackground()
-    {
-        //background = (GameObject)Instantiate(backgroundPrefab, new Vector3(0,0,0.9f), Quaternion.identity, this.transform);
-        background = (GameObject)Instantiate(backgroundPrefab, new Vector3(0,0,0), Quaternion.identity, this.transform);
-        background.name = "Background";
-        SpriteRenderer backgroundSR = background.GetComponent<SpriteRenderer>();
-        backgroundSR.material.renderQueue = 3001;
-    }
-
     void PlaceCharactersOnTheGrid()
     {
-        PlaceCharacter(hexGrid.GetHexByCoords(1, hexGridHeight / 2), characterPrefabs[0], "Ally Character 1");
-        PlaceCharacter(hexGrid.GetHexByCoords(1, (hexGridHeight / 2) + 2), characterPrefabs[1], "Ally Character 2");
-        PlaceCharacter(hexGrid.GetHexByCoords(1, (hexGridHeight / 2) - 2), characterPrefabs[2], "Ally Character 3");
+        GameObject charactersParentObject = new GameObject();
+        charactersParentObject.transform.parent = this.transform;
+        charactersParentObject.name = "Characters";
 
-        PlaceCharacter(hexGrid.GetHexByCoords(hexGridWidth - 2, hexGridHeight / 2), characterPrefabs[numberOfAllies], "Enemy Character 1");
+        PlaceCharacter(hexGrid.GetHexByCoords(1, hexGridHeight / 2), characterPrefabs[0], charactersParentObject);
+        PlaceCharacter(hexGrid.GetHexByCoords(1, (hexGridHeight / 2) + 2), characterPrefabs[1], charactersParentObject);
+        PlaceCharacter(hexGrid.GetHexByCoords(1, (hexGridHeight / 2) - 2), characterPrefabs[2], charactersParentObject);
+
+        PlaceCharacter(hexGrid.GetHexByCoords(hexGridWidth - 2, hexGridHeight / 2), characterPrefabs[numberOfAllies], charactersParentObject);
     }
 
-    void PlaceCharacter(HexCell charPosition, Character charPrefab, string charName)
+    void PlaceCharacter(HexCell charPosition, Character charPrefab, GameObject parent)
     {
-        Character newChar = (Character)Instantiate(charPrefab, charPosition.transform.position, Quaternion.identity, this.transform);
-        newChar.name = charName;
+        Character newChar = (Character)Instantiate(charPrefab, charPosition.transform.position, Quaternion.identity, parent.transform);
+        newChar.name = charPrefab.charName;
         newChar.hexCell = charPosition;
         characters.Add(newChar);
 

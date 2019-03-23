@@ -20,7 +20,7 @@ public class UIManager : MonoBehaviour
     public Text ActionPointsText;
     public Text ActionPointsRegenText;
     public Image[] AbilityBar;
-    public Button EndTurnButton;
+    public Image[] AbilityBarBorders;
     
 
     // Start is called before the first frame update

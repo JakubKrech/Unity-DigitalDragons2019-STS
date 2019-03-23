@@ -9,6 +9,7 @@ public class MouseStateManager : MonoBehaviour
     public bool characterBeingLookedUp = false;
     public BattlefieldStateManager BattlefieldSM;
     //public ButtonStateManager ButtonSM;
+    public Ability clickedAbility;
 
     // Start is called before the first frame update
     void Start()
@@ -76,10 +77,23 @@ public class MouseStateManager : MonoBehaviour
 
     void ChooseTargetState(RaycastHit2D hit2D)
     {
-        // if(hit2D.collider != null)
-        // {
+        string hit2DTag = hit2D.transform.tag;
 
+        if(hit2DTag.Equals("Character"))
+        {
+            if(Input.GetMouseButtonDown(0))
+            {
+                Character attacker = BattlefieldSM.CharactersByInitiative[0];
+                Character attacked = hit2D.transform.parent.gameObject.GetComponent<Character>();
+                Debug.Log(attacker.charName + " has attacked " + attacked.charName);
+            }   
+        }
 
-        // }
+        if(Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.Escape))
+        {
+            Debug.Log("Ability Cancelled");
+            clickedAbility = null;
+            currentMouseState = MouseStateMachine.CHOOSEACTION;
+        }
     }
 }

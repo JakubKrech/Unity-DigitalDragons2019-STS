@@ -4,22 +4,29 @@ using UnityEngine;
 
 public class Ability : MonoBehaviour
 {
+    public bool locked = false; // indicates if ability is unlocked yet
     [Header("Ability Characteristics")]
     public string abilityName;
     public int manaCost = 0;
     public int healthCost = 0;
     public int actionPointsCost = 0;
     public int cooldown;
+    public int currentCooldown = 0;
     public int baseDamage = 0;
     public float strengthMultiplier = 0;
     public float powerMultiplier = 0;
     public float agilityMultiplier = 0;
-    public int range;
+    //public int range;
+    public bool range;
+    public int applyStun;
+    public bool removeStun = false;
+    public int applyImmobilize;
+    public bool removeImmobilize = false;
 
     [Header("Elements")]
     public Sprite icon;
 
-    public Ability(string n, int mC, int hC, int cd, int bD, int sM, int pM, int aM, int r)
+    public Ability(string n, int mC, int hC, int cd, int bD, int sM, int pM, int aM, bool r)
     {
         this.abilityName = n;
         this.manaCost = mC;
