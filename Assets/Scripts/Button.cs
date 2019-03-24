@@ -41,6 +41,7 @@ public class Button : MonoBehaviour
         {
             if(!checkLocked(a) && checkCooldown(a) && checkAP(a) && checkMana(a))
             {
+                MSM.BattlefieldSM.CharactersByInitiative[0].DeActivateMovableTiles();
                 Debug.Log("ABILITY " + a.name + " CLICKED SUCCESFULLY");
 
                 MSM.clickedAbility = a;

@@ -112,7 +112,7 @@ public class Character : MonoBehaviour
         }
     }
 
-    void ActivateMovableTiles()
+    public void ActivateMovableTiles()
     {
         foreach (HexCell neighbor in hexCell.neighbors)
         {
@@ -133,7 +133,7 @@ public class Character : MonoBehaviour
             }
         }
     }
-    void DeActivateMovableTiles()
+    public void DeActivateMovableTiles()
     {
         foreach (HexCell neighbor in hexCell.neighbors)
         {
@@ -145,6 +145,25 @@ public class Character : MonoBehaviour
             }
         }
     }
+
+    public void ActivateAllEnemyTiles()
+    {
+        foreach (Character character in BSM.CharactersByInitiative)
+        {
+            if(!character.playerControlled)
+            {
+                character.hexCell.HexBorder.color = Color.red;
+                character.hexCell.HexBorder.enabled = true;
+                character.hexCell.active = true;
+            }
+        }
+    }
+
+    public void ActivateInMeleeRangeEnemyTiles()
+    {
+        
+    }
+
     public void MoveCharacter(HexCell destination)
     {
         DeActivateMovableTiles();

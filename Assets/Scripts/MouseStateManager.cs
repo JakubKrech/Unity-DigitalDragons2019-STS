@@ -32,10 +32,12 @@ public class MouseStateManager : MonoBehaviour
                     //idle
                 break;
                 case(MouseStateMachine.CHOOSEACTION):
+                    //BattlefieldSM.CharactersByInitiative[0].ActivateMovableTiles();
                     ChooseActionState(hit2D);
                 break;
 
                 case(MouseStateMachine.CHOOSETARGET):
+                    //BattlefieldSM.CharactersByInitiative[0].DeActivateMovableTiles();
                     ChooseTargetState(hit2D);
                 break;
             }
@@ -93,6 +95,7 @@ public class MouseStateManager : MonoBehaviour
         {
             Debug.Log("Ability Cancelled");
             clickedAbility = null;
+            BattlefieldSM.CharactersByInitiative[0].ActivateMovableTiles();
             currentMouseState = MouseStateMachine.CHOOSEACTION;
         }
     }
