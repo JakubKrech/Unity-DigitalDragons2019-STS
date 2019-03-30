@@ -49,7 +49,8 @@ MonoBehaviour:
   healthCost: 0
   actionPointsCost: 0
   cooldown: 0
-  baseDamage: 0
+  currentCooldown: 0
+  baseDamage: 500
   strengthMultiplier: 0
   powerMultiplier: 0
   agilityMultiplier: 0

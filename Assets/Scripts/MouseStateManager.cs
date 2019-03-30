@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using System.Linq;
 
 public class MouseStateManager : MonoBehaviour
 {
@@ -8,8 +10,11 @@ public class MouseStateManager : MonoBehaviour
     public MouseStateMachine currentMouseState = MouseStateMachine.IDLE;
     public bool characterBeingLookedUp = false;
     public BattlefieldStateManager BattlefieldSM;
+    public UIManager UIM;
     //public ButtonStateManager ButtonSM;
     public Ability clickedAbility;
+    public int clickedAbilityIndex;
+    public Image clickedAbilityBorder;
 
     // Start is called before the first frame update
     void Start()
@@ -29,22 +34,28 @@ public class MouseStateManager : MonoBehaviour
             switch(currentMouseState)
             {
                 case(MouseStateMachine.IDLE):
+                    if(hit2D.transform.tag.Equals("Character"))
+                    {
+                        lookAtCharacterStats(hit2D);
+                    }
                     //idle
                 break;
                 case(MouseStateMachine.CHOOSEACTION):
-                    //BattlefieldSM.CharactersByInitiative[0].ActivateMovableTiles();
                     ChooseActionState(hit2D);
                 break;
 
                 case(MouseStateMachine.CHOOSETARGET):
-                    //BattlefieldSM.CharactersByInitiative[0].DeActivateMovableTiles();
                     ChooseTargetState(hit2D);
                 break;
             }
 
             if(characterBeingLookedUp && hit2D.transform.tag != "Character") 
             {
-                BattlefieldSM.battlefield.UIManager.updateUIToChosenCharacter(BattlefieldSM.CharactersByInitiative[0]);
+                if(BattlefieldSM.CharactersByInitiative.Any())
+                    BattlefieldSM.battlefield.UIManager.updateUIToChosenCharacter(BattlefieldSM.CharactersByInitiative[0]);
+                else
+                    BattlefieldSM.battlefield.UIManager.updateUIToChosenCharacter(BattlefieldSM.lastActiveCharacter);
+
                 characterBeingLookedUp = false;
             }
         }
@@ -68,8 +79,7 @@ public class MouseStateManager : MonoBehaviour
         }
         else if(hit2DTag.Equals("Character"))
         {
-            BattlefieldSM.battlefield.UIManager.updateUIToChosenCharacter(hit2D.collider.transform.parent.gameObject.GetComponent<Character>());
-            characterBeingLookedUp = true; 
+            lookAtCharacterStats(hit2D);
         }
 
         // clicking ability icons and end turn button is handled by ButtonManager object (Button script)
@@ -83,11 +93,25 @@ public class MouseStateManager : MonoBehaviour
 
         if(hit2DTag.Equals("Character"))
         {
+            lookAtCharacterStats(hit2D);
+
             if(Input.GetMouseButtonDown(0))
             {
                 Character attacker = BattlefieldSM.CharactersByInitiative[0];
                 Character attacked = hit2D.transform.parent.gameObject.GetComponent<Character>();
-                Debug.Log(attacker.charName + " has attacked " + attacked.charName);
+                //Debug.Log(attacker.charName + " has attacked " + attacked.charName);
+                clickedAbility.dealDamage(attacker, attacked);
+                if(attacker.currentHP > 0){ 
+                    clickedAbility = null;
+                    BattlefieldSM.CharactersByInitiative[0].ActivateMovableTiles();
+                    currentMouseState = MouseStateMachine.IDLE;
+                    BattlefieldSM.CharactersByInitiative[0].characterState = Character.CharacterStateMachine.AFTERACTION;
+                }
+                else
+                {
+                    currentMouseState = MouseStateMachine.IDLE;
+                    BattlefieldSM.CharactersByInitiative[0].characterState = Character.CharacterStateMachine.ENDTURN;
+                }
             }   
         }
 
@@ -96,7 +120,15 @@ public class MouseStateManager : MonoBehaviour
             Debug.Log("Ability Cancelled");
             clickedAbility = null;
             BattlefieldSM.CharactersByInitiative[0].ActivateMovableTiles();
+            UIM.AbilityBarBorders[clickedAbilityIndex].color = Color.white;
             currentMouseState = MouseStateMachine.CHOOSEACTION;
         }
     }
+
+    void lookAtCharacterStats(RaycastHit2D hit2D)
+    {
+        BattlefieldSM.battlefield.UIManager.updateUIToChosenCharacter(hit2D.collider.transform.parent.gameObject.GetComponent<Character>());
+        characterBeingLookedUp = true; 
+    }
 }
+

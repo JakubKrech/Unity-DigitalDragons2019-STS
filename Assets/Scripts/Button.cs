@@ -8,45 +8,55 @@ public class Button : MonoBehaviour
     //public enum ButtonStateMachine{ACTIVATED, DEACTIVATED};
     //ButtonStateMachine currentButtonState = ButtonStateMachine.DEACTIVATED;
     public MouseStateManager MSM;
+    public UIManager UIM;
+
+    void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Alpha1)) clickAbilityButtonAction(0);
+        if(Input.GetKeyDown(KeyCode.Alpha2)) clickAbilityButtonAction(1);
+        if(Input.GetKeyDown(KeyCode.Alpha3)) clickAbilityButtonAction(2);
+        if(Input.GetKeyDown(KeyCode.Alpha4)) clickAbilityButtonAction(3);
+        if(Input.GetKeyDown(KeyCode.Alpha5)) clickAbilityButtonAction(4);
+    }
 
     public void clickedAbilityButton1()
     {
-        Ability chosenAbility = MSM.BattlefieldSM.CharactersByInitiative[0].abilities[0];
-        clickAbilityButtonAction(chosenAbility);
+        clickAbilityButtonAction(0);
     }
     public void clickedAbilityButton2()
     {
-        Ability chosenAbility = MSM.BattlefieldSM.CharactersByInitiative[0].abilities[1];
-        clickAbilityButtonAction(chosenAbility);
+        clickAbilityButtonAction(1);
     }
     public void clickedAbilityButton3()
     {
-        Ability chosenAbility = MSM.BattlefieldSM.CharactersByInitiative[0].abilities[2];
-        clickAbilityButtonAction(chosenAbility);
+        clickAbilityButtonAction(2);
     }
     public void clickedAbilityButton4()
     {
-        Ability chosenAbility = MSM.BattlefieldSM.CharactersByInitiative[0].abilities[3];
-        clickAbilityButtonAction(chosenAbility);
+        clickAbilityButtonAction(3);
     }
     public void clickedAbilityButton5()
     {
-        Ability chosenAbility = MSM.BattlefieldSM.CharactersByInitiative[0].abilities[4];
-        clickAbilityButtonAction(chosenAbility);
+        clickAbilityButtonAction(4);
     }
 
-    void clickAbilityButtonAction(Ability a)
+    void clickAbilityButtonAction(int abilityIndex)
     {
         if(MSM.currentMouseState == MouseStateManager.MouseStateMachine.CHOOSEACTION)
         {
-            if(!checkLocked(a) && checkCooldown(a) && checkAP(a) && checkMana(a))
+            Ability chosenAbility = MSM.BattlefieldSM.CharactersByInitiative[0].abilities[abilityIndex];
+
+            if(!checkLocked(chosenAbility) && checkCooldown(chosenAbility) 
+                && checkAP(chosenAbility) && checkMana(chosenAbility))
             {
                 MSM.BattlefieldSM.CharactersByInitiative[0].DeActivateMovableTiles();
-                Debug.Log("ABILITY " + a.name + " CLICKED SUCCESFULLY");
+                Debug.Log("ABILITY " + chosenAbility.name + " CLICKED SUCCESFULLY");
 
-                MSM.clickedAbility = a;
+                Color32 borderColor = new Color32(0, 255, 0, 255);
+                UIM.AbilityBarBorders[abilityIndex].color = borderColor;
+                MSM.clickedAbility = chosenAbility;
+                MSM.clickedAbilityIndex = abilityIndex;
                 MSM.currentMouseState = MouseStateManager.MouseStateMachine.CHOOSETARGET;
-
             }
         }
         else

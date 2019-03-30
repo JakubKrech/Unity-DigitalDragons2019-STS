@@ -72,6 +72,7 @@ MonoBehaviour:
   - {fileID: 319059931983957668, guid: af53db4385223794385080a4d7eb237e, type: 3}
   - {fileID: 319059931983957668, guid: 5788410e2a80dc341bf58caba4ae8305, type: 3}
   - {fileID: 319059931983957668, guid: 5788410e2a80dc341bf58caba4ae8305, type: 3}
+  characterSprite: {fileID: 6554918177164636339}
 --- !u!1 &6554918177164636337
 GameObject:
   m_ObjectHideFlags: 0

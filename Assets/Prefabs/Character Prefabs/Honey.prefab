@@ -219,3 +219,4 @@ MonoBehaviour:
   - {fileID: 319059931983957668, guid: 20b846dcd0b9edb40926064637e426b9, type: 3}
   - {fileID: 319059931983957668, guid: 40dcca47f6115ee43b89ec40f3a533f9, type: 3}
   - {fileID: 319059931983957668, guid: 40dcca47f6115ee43b89ec40f3a533f9, type: 3}
+  characterSprite: {fileID: 9056561894034962352}

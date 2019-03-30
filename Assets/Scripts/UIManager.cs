@@ -21,6 +21,12 @@ public class UIManager : MonoBehaviour
     public Text ActionPointsRegenText;
     public Image[] AbilityBar;
     public Image[] AbilityBarBorders;
+    [Header("Result Screen Window")]
+    public GameObject ResultScreenWindow;
+    public Text battleOutcome;
+    public Text battleOutcomeDescription;
+    [Header("Other")]
+    public Text turnCounterText;
     
 
     // Start is called before the first frame update
@@ -67,7 +73,7 @@ public class UIManager : MonoBehaviour
     public void updateAbilityBar(Character character)
     {
         ActionPointsText.text = character.currentActionPoints + " / " + character.maxActionPoints;
-        ActionPointsRegenText.text = "+" + character.actionPointsRegen + " PER\nTURN";
+        ActionPointsRegenText.text = "+" + character.actionPointsRegen + " PER";
 
         for(int i = 0; i < character.abilities.Count; i++)
         {
@@ -83,5 +89,10 @@ public class UIManager : MonoBehaviour
         updateHealthBar(character);
         updateManaBar(character);
         updateAbilityBar(character);
+    }
+
+    public void updateTurnCounter(int currentTurnNumber)
+    {
+        turnCounterText.text = "Turn " + currentTurnNumber;
     }
 }

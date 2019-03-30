@@ -30,6 +30,7 @@ public class Character : MonoBehaviour
     public Sprite characterAvatar;
     BattlefieldStateManager BSM;
     public List<Ability> abilitiesPrefabs;
+    public SpriteRenderer characterSprite;
 
     /// Awake is called when the script instance is being loaded.
     void Awake()
@@ -182,5 +183,18 @@ public class Character : MonoBehaviour
         currentActionPoints--;
 
         //ActivateMovableTiles();
+    }
+
+    public void characterDies()
+    {
+        var rotationVector = transform.rotation.eulerAngles;
+        rotationVector.z = 270;
+        this.transform.rotation = Quaternion.Euler(rotationVector);
+
+        if((BSM.checkIfAlliesLeft(BSM.battlefield.characters) && BSM.checkIfEnemiesLeft(BSM.battlefield.characters)) == false)
+        {
+            this.characterState = CharacterStateMachine.ENDTURN;
+        }
+    
     }
 }

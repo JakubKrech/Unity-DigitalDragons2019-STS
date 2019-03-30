@@ -8,11 +8,14 @@ public class BattlefieldStateManager : MonoBehaviour
 {
     public Battlefield battlefield;
     public MouseStateManager MSM;
+    public UIManager UIM;
     public enum BattlefieldStateMachine{ PRESTART, PERFORMTURN, WAIT, ENDTURN, RESULTSCREEN }
     public BattlefieldStateMachine currentState = BattlefieldStateMachine.WAIT;
     public List<Character> CharactersByInitiative; //CharactersByInitiative[0] is currently active character
     //int activeCharacterNumber = 0;
     //public Character activeCharacter;
+    int currentTurn = 1;
+    public Character lastActiveCharacter;
 
     void Start()
     {
@@ -34,9 +37,10 @@ public class BattlefieldStateManager : MonoBehaviour
                 break;
 
             case(BattlefieldStateMachine.PERFORMTURN):
-                    if(CharactersByInitiative.Any()){
+                    if(CharactersByInitiative.Any() && checkIfEnemiesLeft(battlefield.characters) && checkIfAlliesLeft(battlefield.characters)){
                         battlefield.UIManager.updateOrderQueue(CharactersByInitiative);
                         battlefield.UIManager.updateUIToChosenCharacter(CharactersByInitiative[0]);
+                        lastActiveCharacter = CharactersByInitiative[0];
                         currentState = BattlefieldStateMachine.WAIT;
                         
                         if(CharactersByInitiative[0].playerControlled){
@@ -51,15 +55,31 @@ public class BattlefieldStateManager : MonoBehaviour
                 break;
 
             case(BattlefieldStateMachine.ENDTURN):
-                    Debug.Log("-----NEW TURN HAS STARTED-----");
-                    UpdateCharactersStats();
-                    FillActiveCharsByInitiative();
-                    // wypisanie czegos typu "TURN 5" na srodku ekranu?
-                    currentState = BattlefieldStateMachine.PERFORMTURN;
+                    if(checkIfEnemiesLeft(battlefield.characters) && checkIfAlliesLeft(battlefield.characters)){
+                        Debug.Log("-----NEW TURN HAS STARTED-----");
+                        UIM.updateTurnCounter(++currentTurn);
+                        UpdateCharactersStats();
+                        FillActiveCharsByInitiative();
+                        currentState = BattlefieldStateMachine.PERFORMTURN;
+                    }
+                    else currentState = BattlefieldStateMachine.RESULTSCREEN;
                 break;
 
             case(BattlefieldStateMachine.RESULTSCREEN):
+                    MSM.currentMouseState = MouseStateManager.MouseStateMachine.IDLE;
+                    Debug.Log("GAME FINISHED");
+                    
+                    if(!checkIfEnemiesLeft(battlefield.characters)){
+                        UIM.battleOutcome.text = "VICTORY";
+                        UIM.battleOutcomeDescription.text = "All enemies has been defeated!";
+                    }
+                    else{
+                        UIM.battleOutcome.text = "LOSE";
+                        UIM.battleOutcomeDescription.text = "You have been defeated!";
+                    }
+                    UIM.ResultScreenWindow.SetActive(true);
 
+                    currentState = BattlefieldStateMachine.WAIT;
                 break;
         }
     }
@@ -95,4 +115,21 @@ public class BattlefieldStateManager : MonoBehaviour
         }
     }
 
+    public bool checkIfEnemiesLeft(List<Character> list)
+    {
+        foreach (Character character in list)
+        {
+            if(character.playerControlled == false && character.alive) return true;
+        }
+        return false;
+    }
+
+    public bool checkIfAlliesLeft(List<Character> list)
+    {
+        foreach (Character character in list)
+        {
+            if(character.playerControlled == true && character.alive) return true;
+        }
+        return false;
+    }
 }

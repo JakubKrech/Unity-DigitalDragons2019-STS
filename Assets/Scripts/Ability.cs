@@ -52,23 +52,40 @@ public class Ability : MonoBehaviour
         return Mathf.RoundToInt(damage);
     }
 
-    void dealDamage(Character attacker, Character attacked)
+    public void dealDamage(Character attacker, Character attacked)
     {
         int damageDealt = calculateDamage(attacker, attacked);
 
-        if(attacked.currentHP - damageDealt < 0) 
+        Debug.Log(attacker.charName + " has attacked " + attacked.charName + " using " + this.name);
+        Debug.Log(attacker.charName + " -" + manaCost + "mana, -" + healthCost + "HP, -" + actionPointsCost + "AP");
+        Debug.Log(attacked.charName + " -" + damageDealt + "HP");
+
+        if(attacked.currentHP - damageDealt <= 0) 
         {
             attacked.currentHP = 0;
             attacked.alive = false;
+            // death animation
+            attacked.characterDies();
+            Debug.Log(attacked.charName + " DIES!!!");
         }
         else attacked.currentHP -= damageDealt;
 
         // healthCost
-        if(attacker.currentHP - healthCost < 0) attacker.currentHP = 0;
+        if(attacker.currentHP - healthCost <= 0) 
+        {
+            attacker.currentHP = 0;
+            attacker.alive = false;
+            // death animation
+            attacker.characterDies();
+            Debug.Log(attacker.charName + " DIES!!!");
+        }
         else attacker.currentHP -= healthCost;
 
         // manaCost
         if(attacker.currentMana - manaCost < 0) attacker.currentMana = 0;
         else attacker.currentMana -= manaCost;
+
+        // APCost
+        attacker.currentActionPoints -= actionPointsCost;
     }
 }
