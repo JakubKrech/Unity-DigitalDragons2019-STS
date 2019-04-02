@@ -56,6 +56,7 @@ public class Button : MonoBehaviour
                 UIM.AbilityBarBorders[abilityIndex].color = borderColor;
                 MSM.clickedAbility = chosenAbility;
                 MSM.clickedAbilityIndex = abilityIndex;
+                MSM.clickedAbilityBorder = UIM.AbilityBarBorders[abilityIndex];
                 MSM.currentMouseState = MouseStateManager.MouseStateMachine.CHOOSETARGET;
             }
         }

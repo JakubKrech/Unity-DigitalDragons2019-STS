@@ -20,7 +20,7 @@ public class Character : MonoBehaviour
     public int agility; // bonus critChance + maxActionPoints
     public int power; // bonus mana + damage
     public int initiative; // starts turn faster + ??
-    public int armor; // block incoming damage, 20 armor = -20% dmg taken
+    //public int armor; // block incoming damage, 20 armor = -20% dmg taken
     public int critChance;
     public List<Ability> abilities;
 

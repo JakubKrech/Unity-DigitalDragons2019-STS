@@ -47,7 +47,7 @@ public class Ability : MonoBehaviour
 
         float damage = ((baseDamage + strengthMultiplier * attacker.strength + 
             powerMultiplier * attacker.power + agilityMultiplier * attacker.agility) * 
-            critCheck * 1.5f) * (1 - attacked.armor);
+            critCheck * 1.5f);// * (1 - attacked.armor);
 
         return Mathf.RoundToInt(damage);
     }

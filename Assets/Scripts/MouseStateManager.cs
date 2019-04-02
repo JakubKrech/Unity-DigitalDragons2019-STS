@@ -101,6 +101,8 @@ public class MouseStateManager : MonoBehaviour
                 Character attacked = hit2D.transform.parent.gameObject.GetComponent<Character>();
                 //Debug.Log(attacker.charName + " has attacked " + attacked.charName);
                 clickedAbility.dealDamage(attacker, attacked);
+                clickedAbilityBorder.color = Color.white;
+
                 if(attacker.currentHP > 0){ 
                     clickedAbility = null;
                     BattlefieldSM.CharactersByInitiative[0].ActivateMovableTiles();
