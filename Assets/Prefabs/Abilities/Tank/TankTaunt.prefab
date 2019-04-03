@@ -45,8 +45,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   locked: 0
   abilityName: TankTaunt
-  manaCost: 0
-  healthCost: 0
+  description: 
+  manaCost: 10
+  healthCost: 40
   actionPointsCost: 2
   cooldown: 1
   currentCooldown: 0

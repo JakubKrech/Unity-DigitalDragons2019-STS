@@ -12,6 +12,27 @@ PrefabInstance:
       propertyPath: m_Name
       value: HoneyAA
       objectReference: {fileID: 0}
+    - target: {fileID: 350390135503976438, guid: 7ae23bf71a5c5f34e887332863493378,
+        type: 3}
+      propertyPath: icon
+      value: 
+      objectReference: {fileID: 21300000, guid: ac671435bf5871c44a9d8f3583330ad7,
+        type: 3}
+    - target: {fileID: 350390135503976438, guid: 7ae23bf71a5c5f34e887332863493378,
+        type: 3}
+      propertyPath: range
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 350390135503976438, guid: 7ae23bf71a5c5f34e887332863493378,
+        type: 3}
+      propertyPath: abilityName
+      value: HoneyAA
+      objectReference: {fileID: 0}
+    - target: {fileID: 350390135503976438, guid: 7ae23bf71a5c5f34e887332863493378,
+        type: 3}
+      propertyPath: description
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 7948182734852749928, guid: 7ae23bf71a5c5f34e887332863493378,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -66,22 +87,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 350390135503976438, guid: 7ae23bf71a5c5f34e887332863493378,
-        type: 3}
-      propertyPath: icon
-      value: 
-      objectReference: {fileID: 21300000, guid: ac671435bf5871c44a9d8f3583330ad7,
-        type: 3}
-    - target: {fileID: 350390135503976438, guid: 7ae23bf71a5c5f34e887332863493378,
-        type: 3}
-      propertyPath: range
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 350390135503976438, guid: 7ae23bf71a5c5f34e887332863493378,
-        type: 3}
-      propertyPath: abilityName
-      value: HoneyAA
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7ae23bf71a5c5f34e887332863493378, type: 3}

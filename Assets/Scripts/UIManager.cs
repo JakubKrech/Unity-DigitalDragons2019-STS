@@ -25,6 +25,18 @@ public class UIManager : MonoBehaviour
     public GameObject ResultScreenWindow;
     public Text battleOutcome;
     public Text battleOutcomeDescription;
+    [Header("Ability Description Panel")]
+    public GameObject ADP;
+    public Text ADPAbilityName;
+    public Text ADPDescription;
+    public Text ADPSkillCostValue;
+    public Text ADPSkillDamageValue;
+    public Text ADPSkillEffects;
+    public Text ADPAPCost;
+    public Text ADPSkillCooldown;
+    public Text ADPRangedMelee;
+    
+
     [Header("Other")]
     public Text turnCounterText;
     

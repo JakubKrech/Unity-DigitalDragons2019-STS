@@ -7,6 +7,7 @@ public class Ability : MonoBehaviour
     public bool locked = false; // indicates if ability is unlocked yet
     [Header("Ability Characteristics")]
     public string abilityName;
+    public string description;
     public int manaCost = 0;
     public int healthCost = 0;
     public int actionPointsCost = 0;
@@ -39,7 +40,7 @@ public class Ability : MonoBehaviour
         this.range = r;
     }
 
-    int calculateDamage(Character attacker, Character attacked)
+    public int calculateDamage(Character attacker)//, Character attacked)
     {
         float critRoll = Random.Range(.0f, 1.0f);
         int critCheck = 0;
@@ -54,7 +55,7 @@ public class Ability : MonoBehaviour
 
     public void dealDamage(Character attacker, Character attacked)
     {
-        int damageDealt = calculateDamage(attacker, attacked);
+        int damageDealt = calculateDamage(attacker);//, attacked);
 
         Debug.Log(attacker.charName + " has attacked " + attacked.charName + " using " + this.name);
         Debug.Log(attacker.charName + " -" + manaCost + "mana, -" + healthCost + "HP, -" + actionPointsCost + "AP");

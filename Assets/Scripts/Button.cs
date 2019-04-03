@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Button : MonoBehaviour
 {
@@ -19,6 +20,7 @@ public class Button : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Alpha5)) clickAbilityButtonAction(4);
     }
 
+    // On mouse click
     public void clickedAbilityButton1()
     {
         clickAbilityButtonAction(0);
@@ -38,6 +40,49 @@ public class Button : MonoBehaviour
     public void clickedAbilityButton5()
     {
         clickAbilityButtonAction(4);
+    }
+    // On mouse enter
+    public void onMouseEnterButton1()
+    {
+        onPointerEnterAction(0);
+    }
+    public void onMouseEnterButton2()
+    {
+        onPointerEnterAction(1);
+    }
+    public void onMouseEnterButton3()
+    {
+        onPointerEnterAction(2);
+    }
+    public void onMouseEnterButton4()
+    {
+        onPointerEnterAction(3);
+    }
+    public void onMouseEnterButton5()
+    {
+        onPointerEnterAction(4);
+    }
+
+    // On mouse exit
+    public void onMouseExitButton1()
+    {
+        onPointerExitAction(0);
+    }
+    public void onMouseExitButton2()
+    {
+        onPointerExitAction(1);
+    }
+    public void onMouseExitButton3()
+    {
+        onPointerExitAction(2);
+    }
+    public void onMouseExitButton4()
+    {
+        onPointerExitAction(3);
+    }
+    public void onMouseExitButton5()
+    {
+        onPointerExitAction(4);
     }
 
     void clickAbilityButtonAction(int abilityIndex)
@@ -64,6 +109,17 @@ public class Button : MonoBehaviour
         {
             Debug.Log("YOU CANT CLICK ABILITY ICON RIGHT NOW!");
         }
+    }
+
+    void onPointerEnterAction(int abilityIndex)
+    {
+        updateAbilityDescriptionPanel(abilityIndex);
+        UIM.ADP.SetActive(true);
+    }
+
+    void onPointerExitAction(int abilityIndex)
+    {
+        UIM.ADP.SetActive(false);
     }
     
     bool checkLocked(Ability a)
@@ -116,4 +172,32 @@ public class Button : MonoBehaviour
         }
     }
 
+    void updateAbilityDescriptionPanel(int abilityIndex)
+    {
+        Character activeCharacter = MSM.BattlefieldSM.CharactersByInitiative[0];
+
+        UIM.ADPAbilityName.text = activeCharacter.abilities[abilityIndex].name;
+        UIM.ADPDescription.text = activeCharacter.abilities[abilityIndex].description;
+        UIM.ADPAPCost.text = "AP: " + activeCharacter.abilities[abilityIndex].actionPointsCost.ToString();
+        
+        UIM.ADPSkillCostValue.text = "";
+        if(activeCharacter.abilities[abilityIndex].manaCost > 0) UIM.ADPSkillCostValue.text += activeCharacter.abilities[abilityIndex].manaCost.ToString() + " MP ";
+        if(activeCharacter.abilities[abilityIndex].healthCost > 0) UIM.ADPSkillCostValue.text += activeCharacter.abilities[abilityIndex].healthCost.ToString() + " HP";
+
+        UIM.ADPSkillDamageValue.text = activeCharacter.abilities[abilityIndex].calculateDamage(activeCharacter).ToString();
+        UIM.ADPSkillCooldown.text = "Cooldown: " + activeCharacter.abilities[abilityIndex].cooldown.ToString();
+        if(activeCharacter.abilities[abilityIndex].range)
+            UIM.ADPRangedMelee.text = "RANGED";
+        else
+            UIM.ADPRangedMelee.text = "MELEE";
+
+        UIM.ADPSkillEffects.text = "Effects:  ";
+        if(activeCharacter.abilities[abilityIndex].applyStun > 0) UIM.ADPSkillEffects.text += "STUN (" + activeCharacter.abilities[abilityIndex].applyStun + ") ";
+        if(activeCharacter.abilities[abilityIndex].applyImmobilize > 0) UIM.ADPSkillEffects.text += "IMMOBILIZE (" + activeCharacter.abilities[abilityIndex].applyImmobilize + ")";
+    }
+
+    public void EndScreenButton()
+    {
+        SceneManager.LoadScene("EndScreen");
+    }
 }

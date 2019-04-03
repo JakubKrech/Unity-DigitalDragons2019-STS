@@ -12,6 +12,32 @@ PrefabInstance:
       propertyPath: m_Name
       value: TankAA
       objectReference: {fileID: 0}
+    - target: {fileID: 1978947210589073540, guid: 59fd505f51263544089c76cf38b4f8a8,
+        type: 3}
+      propertyPath: icon
+      value: 
+      objectReference: {fileID: 21300000, guid: cc94bf954e7671e459cbfb58d703b86d,
+        type: 3}
+    - target: {fileID: 1978947210589073540, guid: 59fd505f51263544089c76cf38b4f8a8,
+        type: 3}
+      propertyPath: abilityName
+      value: TankAA
+      objectReference: {fileID: 0}
+    - target: {fileID: 1978947210589073540, guid: 59fd505f51263544089c76cf38b4f8a8,
+        type: 3}
+      propertyPath: description
+      value: Attack nearby enemy with your mighty Axe.
+      objectReference: {fileID: 0}
+    - target: {fileID: 1978947210589073540, guid: 59fd505f51263544089c76cf38b4f8a8,
+        type: 3}
+      propertyPath: cooldown
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1978947210589073540, guid: 59fd505f51263544089c76cf38b4f8a8,
+        type: 3}
+      propertyPath: range
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8207786054370000154, guid: 59fd505f51263544089c76cf38b4f8a8,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -66,17 +92,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1978947210589073540, guid: 59fd505f51263544089c76cf38b4f8a8,
-        type: 3}
-      propertyPath: icon
-      value: 
-      objectReference: {fileID: 21300000, guid: cc94bf954e7671e459cbfb58d703b86d,
-        type: 3}
-    - target: {fileID: 1978947210589073540, guid: 59fd505f51263544089c76cf38b4f8a8,
-        type: 3}
-      propertyPath: abilityName
-      value: TankAA
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 59fd505f51263544089c76cf38b4f8a8, type: 3}
