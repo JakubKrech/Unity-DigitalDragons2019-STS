@@ -32,7 +32,7 @@ public class Battlefield : MonoBehaviour
 {
     [Header("HexGrid Settings")]
     public HexGrid hexGridPrefab;
-    private HexGrid hexGrid;
+    public HexGrid hexGrid;
     public int hexGridWidth, hexGridHeight;
 
     [Header("Characters Settings")]
@@ -98,6 +98,7 @@ public class Battlefield : MonoBehaviour
         Character newChar = (Character)Instantiate(charPrefab, charPosition.transform.position, Quaternion.identity, parent.transform);
         newChar.name = charPrefab.charName;
         newChar.hexCell = charPosition;
+        newChar.characterSprite.sortingLayerName = "Row" + newChar.hexCell.y;
         characters.Add(newChar);
 
         charPosition.occupied = true;

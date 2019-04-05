@@ -226,6 +226,7 @@ MonoBehaviour:
   currentHP: 200
   maxMana: 80
   currentMana: 80
+  regenMana: 7
   maxActionPoints: 3
   currentActionPoints: 3
   actionPointsRegen: 1

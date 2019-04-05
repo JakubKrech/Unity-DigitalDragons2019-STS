@@ -133,6 +133,7 @@ public class Button : MonoBehaviour
     {
         if(a.locked) {
             Debug.Log("This ability is still locked");
+            StartCoroutine(UIM.ShowFadeingMessage("This ability is still locked"));
             return true;
         }
         else return false;
@@ -143,6 +144,7 @@ public class Button : MonoBehaviour
         if(a.currentCooldown == 0) return true;
         else {
             Debug.Log("Ability still on cooldown!");
+            StartCoroutine(UIM.ShowFadeingMessage("Ability still on cooldown!"));
             return false;
         }
     }
@@ -152,6 +154,7 @@ public class Button : MonoBehaviour
         if(MSM.BattlefieldSM.CharactersByInitiative[0].currentMana >= a.manaCost) return true;
         else {
             Debug.Log("Not enough Mana!");
+            StartCoroutine(UIM.ShowFadeingMessage("Not enough Mana!"));
             return false;
         }
     }
@@ -161,6 +164,7 @@ public class Button : MonoBehaviour
         if(MSM.BattlefieldSM.CharactersByInitiative[0].currentActionPoints >= a.actionPointsCost) return true;
         else {
             Debug.Log("Not enough AP!");
+            StartCoroutine(UIM.ShowFadeingMessage("Not enough AP!"));
             return false;
         }
     }
@@ -176,6 +180,7 @@ public class Button : MonoBehaviour
         else
         {
             Debug.Log("YOU CANT END TURN RIGHT NOW!");
+            StartCoroutine(UIM.ShowFadeingMessage("YOU CANT END TURN RIGHT NOW!"));
         }
     }
 

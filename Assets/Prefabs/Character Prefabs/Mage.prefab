@@ -50,17 +50,18 @@ MonoBehaviour:
   charName: Mage
   level: 1
   currentEXP: 0
-  maxHP: 250
-  currentHP: 118
-  maxMana: 120
-  currentMana: 85
+  maxHP: 120
+  currentHP: 120
+  maxMana: 100
+  currentMana: 100
+  regenMana: 15
   maxActionPoints: 3
   currentActionPoints: 3
   actionPointsRegen: 2
-  strength: 8
+  strength: 0
   agility: 2
-  power: 1
-  initiative: 4
+  power: 4
+  initiative: 2
   critChance: 0
   abilities: []
   hexCell: {fileID: 0}

@@ -223,17 +223,18 @@ MonoBehaviour:
   charName: Honey
   level: 1
   currentEXP: 0
-  maxHP: 180
-  currentHP: 170
-  maxMana: 200
-  currentMana: 173
+  maxHP: 150
+  currentHP: 150
+  maxMana: 100
+  currentMana: 100
+  regenMana: 15
   maxActionPoints: 3
   currentActionPoints: 3
   actionPointsRegen: 2
-  strength: 1
-  agility: 1
-  power: 1
-  initiative: 111
+  strength: 2
+  agility: 2
+  power: 3
+  initiative: 1
   critChance: 0
   abilities: []
   hexCell: {fileID: 0}

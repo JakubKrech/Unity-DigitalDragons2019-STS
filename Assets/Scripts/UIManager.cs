@@ -13,7 +13,7 @@ public class UIManager : MonoBehaviour
     public Slider HealthBar;
     public Text HealthBarText;
     public Slider ManaBar;
-    public Text ManaBarText;
+    public Text ManaBarText, ManaRegenText;
     public Text CharStrength, CharAgility, CharPower, CharInitiative;
 
     [Header("Queue")]
@@ -43,6 +43,8 @@ public class UIManager : MonoBehaviour
 
     [Header("Other")]
     public Text turnCounterText;
+    public Text OnScreenTextMessage;
+    public Image OnScreenTextPanel;
     
 
     // Start is called before the first frame update
@@ -69,6 +71,7 @@ public class UIManager : MonoBehaviour
         ManaBar.maxValue = character.maxMana;
         ManaBar.value = character.currentMana;
         ManaBarText.text = character.currentMana + " / " + character.maxMana;
+        ManaRegenText.text = "+" + (character.regenMana + character.power);
     }
 
     public void updateOrderQueue(List<Character> charList)
@@ -97,7 +100,7 @@ public class UIManager : MonoBehaviour
             if(character.abilities[i].currentCooldown > 0)
             { 
                 AbilityBarCooldownCovers[i].transform.gameObject.SetActive(true);
-                AbilityBarCooldownCovers[i].fillAmount = character.abilities[i].currentCooldown / character.abilities[i].cooldown;
+                AbilityBarCooldownCovers[i].fillAmount = 1.0f * character.abilities[i].currentCooldown / character.abilities[i].cooldown;
                 AbilityBarCooldownCoversText[i].text = character.abilities[i].currentCooldown.ToString();
             }
             else
@@ -125,5 +128,40 @@ public class UIManager : MonoBehaviour
     public void updateTurnCounter(int currentTurnNumber)
     {
         turnCounterText.text = "Turn " + currentTurnNumber;
+        StartCoroutine(ShowFadeingMessage("Turn " + currentTurnNumber));
     }
+
+    public IEnumerator ShowFadeingMessage(string message)
+    {
+        int fadeSpeed = 2;
+
+        OnScreenTextMessage.text = message;
+        
+        while(OnScreenTextMessage.color.a < 1.0f)
+        {
+            OnScreenTextMessage.color = new Color(OnScreenTextMessage.color.r, OnScreenTextMessage.color.g,
+                OnScreenTextMessage.color.b, OnScreenTextMessage.color.a + (Time.deltaTime * fadeSpeed));
+
+            OnScreenTextPanel.color = new Color(OnScreenTextPanel.color.r, OnScreenTextPanel.color.g,
+                OnScreenTextPanel.color.b, OnScreenTextPanel.color.a + (Time.deltaTime * fadeSpeed));
+            
+            yield return null;
+        }
+
+
+        yield return new WaitForSeconds (3);
+
+        while(OnScreenTextMessage.color.a > 0.0f)
+        {
+            OnScreenTextMessage.color = new Color(OnScreenTextMessage.color.r, OnScreenTextMessage.color.g,
+                OnScreenTextMessage.color.b, OnScreenTextMessage.color.a - (Time.deltaTime * fadeSpeed));
+
+            OnScreenTextPanel.color = new Color(OnScreenTextPanel.color.r, OnScreenTextPanel.color.g,
+                OnScreenTextPanel.color.b, OnScreenTextPanel.color.a - (Time.deltaTime * fadeSpeed));
+            
+            yield return null;
+        }
+
+    }
+    
 }

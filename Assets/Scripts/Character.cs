@@ -13,7 +13,7 @@ public class Character : MonoBehaviour {
     public string charName;
     public int level, currentEXP;
     public int maxHP, currentHP;
-    public int maxMana, currentMana;
+    public int maxMana, currentMana, regenMana;
     public int maxActionPoints, currentActionPoints, actionPointsRegen;
     public int strength; // bonus maxHP + damage
     public int agility; // bonus critChance + maxActionPoints
@@ -27,7 +27,7 @@ public class Character : MonoBehaviour {
     public HexCell hexCell;
     Material material;
     public Sprite characterAvatar;
-    BattlefieldStateManager BSM;
+    public BattlefieldStateManager BSM;
     public List<Ability> abilitiesPrefabs;
     public SpriteRenderer characterSprite;
 
@@ -163,12 +163,20 @@ public class Character : MonoBehaviour {
         }
     }
     public void DeactivateAvailableTilesForRange () {
-        foreach (Character character in BSM.CharactersByInitiative) {
+        foreach (Character character in BSM.battlefield.characters) {
             character.hexCell.HexBorder.color = Color.black;
             character.hexCell.HexBorder.enabled = false;
             character.hexCell.active = false;
         }
     }
+
+    // public void DeactivateAllTiles() {
+    //     foreach (HexCell hexCell in BSM.battlefield.hexGrid.cells) {
+    //         hexCell.HexBorder.color = Color.black;
+    //         hexCell.HexBorder.enabled = false;
+    //         hexCell.active = false;
+    //     }
+    // }
 
     public void MoveCharacter (HexCell destination) {
         DeActivateNeighboringTiles ();
@@ -183,6 +191,8 @@ public class Character : MonoBehaviour {
 
         this.transform.position = hexCell.transform.position;
 
+        this.characterSprite.sortingLayerName = "Row" + destination.y;
+
         // moving consumes one Action Point
         currentActionPoints--;
 
@@ -193,6 +203,9 @@ public class Character : MonoBehaviour {
         var rotationVector = transform.rotation.eulerAngles;
         rotationVector.z = 270;
         this.transform.rotation = Quaternion.Euler (rotationVector);
+
+        BSM.CharactersByInitiative.Remove(this);
+        BSM.UIM.updateOrderQueue(BSM.CharactersByInitiative);
 
         if ((BSM.checkIfAlliesLeft (BSM.battlefield.characters) && BSM.checkIfEnemiesLeft (BSM.battlefield.characters)) == false) {
             this.characterState = CharacterStateMachine.ENDTURN;

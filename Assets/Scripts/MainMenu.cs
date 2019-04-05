@@ -18,7 +18,7 @@ public class MainMenu : MonoBehaviour
 
     public void PlayGameButton()
     {
-        SceneManager.LoadScene("Battle");
+        SceneManager.LoadScene("Intro");
     }
 
     public void ExitGameButton()

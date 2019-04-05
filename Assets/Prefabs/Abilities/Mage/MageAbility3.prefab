@@ -44,18 +44,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   locked: 0
-  abilityName: MageAbility3
-  manaCost: 0
+  abilityName: Cleanse
+  description: Remove stuns and immobilize effects from a target.
+  manaCost: 30
   healthCost: 0
-  actionPointsCost: 0
-  cooldown: 0
+  actionPointsCost: 2
+  cooldown: 4
+  currentCooldown: 0
   baseDamage: 0
   strengthMultiplier: 0
   powerMultiplier: 0
   agilityMultiplier: 0
   range: 1
   applyStun: 0
-  removeStun: 0
+  removeStun: 1
   applyImmobilize: 0
-  removeImmobilize: 0
+  removeImmobilize: 1
   icon: {fileID: 21300000, guid: c29e077b0bdcb6f4186fb1a0dc4e0924, type: 3}

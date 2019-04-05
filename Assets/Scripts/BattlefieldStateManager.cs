@@ -56,7 +56,7 @@ public class BattlefieldStateManager : MonoBehaviour
 
             case(BattlefieldStateMachine.ENDTURN):
                     if(checkIfEnemiesLeft(battlefield.characters) && checkIfAlliesLeft(battlefield.characters)){
-                        Debug.Log("-----NEW TURN HAS STARTED-----");
+                        Debug.Log("<color=green>-----NEW TURN HAS STARTED-----</color>");
                         UIM.updateTurnCounter(++currentTurn);
                         UpdateCharactersStats();
                         FillActiveCharsByInitiative();
@@ -112,6 +112,16 @@ public class BattlefieldStateManager : MonoBehaviour
             // Update Action Points
             c.currentActionPoints += c.actionPointsRegen;
             if(c.currentActionPoints > c.maxActionPoints) c.currentActionPoints = c.maxActionPoints;
+
+            // Update Mana
+            c.currentMana += c.regenMana + c.power;
+            if(c.currentMana > c.maxMana) c.currentMana = c.maxMana;
+
+            // Update skills cooldowns
+            foreach (Ability ability in c.abilities)
+            {
+                ability.currentCooldown -= 1;
+            }
         }
     }
 

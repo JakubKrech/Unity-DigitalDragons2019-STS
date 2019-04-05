@@ -57,9 +57,12 @@ public class Ability : MonoBehaviour
     {
         int damageDealt = calculateDamage(attacker);//, attacked);
 
-        Debug.Log(attacker.charName + " has attacked " + attacked.charName + " using " + this.name);
-        Debug.Log(attacker.charName + " -" + manaCost + "mana, -" + healthCost + "HP, -" + actionPointsCost + "AP");
-        Debug.Log(attacked.charName + " -" + damageDealt + "HP");
+        string debugMessage = attacker.charName + " has attacked " + attacked.charName + " using " + this.name + "\n" +
+            attacker.charName + " -" + manaCost + "mana, -" + healthCost + "HP, -" + actionPointsCost + "AP\n" +
+            attacked.charName + " -" + damageDealt + "HP";
+
+        Debug.Log(debugMessage);
+        StartCoroutine(attacker.BSM.UIM.ShowFadeingMessage(debugMessage));
 
         if(attacked.currentHP - damageDealt <= 0) 
         {

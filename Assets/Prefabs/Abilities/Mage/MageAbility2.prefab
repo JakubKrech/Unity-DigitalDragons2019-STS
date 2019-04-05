@@ -44,15 +44,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   locked: 0
-  abilityName: MageAbility2
-  manaCost: 0
+  abilityName: Burst of power
+  description: Deal massive dmg to target.
+  manaCost: 40
   healthCost: 0
-  actionPointsCost: 0
-  cooldown: 0
+  actionPointsCost: 3
+  cooldown: 3
   currentCooldown: 0
-  baseDamage: 500
+  baseDamage: 75
   strengthMultiplier: 0
-  powerMultiplier: 0
+  powerMultiplier: 10
   agilityMultiplier: 0
   range: 1
   applyStun: 0

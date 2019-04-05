@@ -222,10 +222,11 @@ MonoBehaviour:
   charName: Enemy 1
   level: 1
   currentEXP: 0
-  maxHP: 666
-  currentHP: 444
+  maxHP: 800
+  currentHP: 800
   maxMana: 300
-  currentMana: 273
+  currentMana: 300
+  regenMana: 30
   maxActionPoints: 3
   currentActionPoints: 3
   actionPointsRegen: 2
