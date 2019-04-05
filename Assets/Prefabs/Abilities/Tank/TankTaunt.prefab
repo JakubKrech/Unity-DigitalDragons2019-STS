@@ -44,16 +44,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   locked: 0
-  abilityName: TankTaunt
-  description: 
+  abilityName: Taunt
+  description: Shouts loudly, forcing enemy to target him in the next turn.
   manaCost: 10
-  healthCost: 40
+  healthCost: 20
   actionPointsCost: 2
-  cooldown: 1
+  cooldown: 3
   currentCooldown: 0
-  baseDamage: 10
-  strengthMultiplier: 4
-  powerMultiplier: 1
+  baseDamage: 5
+  strengthMultiplier: 2
+  powerMultiplier: 2
   agilityMultiplier: 1
   range: 1
   applyStun: 0

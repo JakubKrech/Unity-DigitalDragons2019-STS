@@ -71,6 +71,9 @@ public class Ability : MonoBehaviour
         }
         else attacked.currentHP -= damageDealt;
 
+        if(attacked.currentHP > attacked.maxHP) attacked.currentHP = attacked.maxHP;
+        if(attacked.currentMana > attacked.maxMana) attacked.currentMana = attacked.maxMana;
+
         // healthCost
         if(attacker.currentHP - healthCost <= 0) 
         {

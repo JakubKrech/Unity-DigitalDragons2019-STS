@@ -21,12 +21,12 @@ PrefabInstance:
     - target: {fileID: 1978947210589073540, guid: 59fd505f51263544089c76cf38b4f8a8,
         type: 3}
       propertyPath: abilityName
-      value: TankAA
+      value: Basic Attack
       objectReference: {fileID: 0}
     - target: {fileID: 1978947210589073540, guid: 59fd505f51263544089c76cf38b4f8a8,
         type: 3}
       propertyPath: description
-      value: Attack nearby enemy with your mighty Axe.
+      value: Slashes nearby enemy with an Axe.
       objectReference: {fileID: 0}
     - target: {fileID: 1978947210589073540, guid: 59fd505f51263544089c76cf38b4f8a8,
         type: 3}
@@ -37,6 +37,16 @@ PrefabInstance:
         type: 3}
       propertyPath: range
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1978947210589073540, guid: 59fd505f51263544089c76cf38b4f8a8,
+        type: 3}
+      propertyPath: baseDamage
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1978947210589073540, guid: 59fd505f51263544089c76cf38b4f8a8,
+        type: 3}
+      propertyPath: strengthMultiplier
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8207786054370000154, guid: 59fd505f51263544089c76cf38b4f8a8,
         type: 3}

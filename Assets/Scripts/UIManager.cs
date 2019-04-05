@@ -14,6 +14,8 @@ public class UIManager : MonoBehaviour
     public Text HealthBarText;
     public Slider ManaBar;
     public Text ManaBarText;
+    public Text CharStrength, CharAgility, CharPower, CharInitiative;
+
     [Header("Queue")]
     public Image[] OrderQueue;
     [Header("Ability Bar")]
@@ -21,6 +23,8 @@ public class UIManager : MonoBehaviour
     public Text ActionPointsRegenText;
     public Image[] AbilityBar;
     public Image[] AbilityBarBorders;
+    public Image[] AbilityBarCooldownCovers;
+    public Text[] AbilityBarCooldownCoversText;
     [Header("Result Screen Window")]
     public GameObject ResultScreenWindow;
     public Text battleOutcome;
@@ -90,6 +94,16 @@ public class UIManager : MonoBehaviour
         for(int i = 0; i < character.abilities.Count; i++)
         {
             AbilityBar[i].sprite = character.abilities[i].icon;
+            if(character.abilities[i].currentCooldown > 0)
+            { 
+                AbilityBarCooldownCovers[i].transform.gameObject.SetActive(true);
+                AbilityBarCooldownCovers[i].fillAmount = character.abilities[i].currentCooldown / character.abilities[i].cooldown;
+                AbilityBarCooldownCoversText[i].text = character.abilities[i].currentCooldown.ToString();
+            }
+            else
+            {
+                AbilityBarCooldownCovers[i].transform.gameObject.SetActive(false);
+            }
         }
     }
 
@@ -101,6 +115,11 @@ public class UIManager : MonoBehaviour
         updateHealthBar(character);
         updateManaBar(character);
         updateAbilityBar(character);
+
+        CharStrength.text = character.strength.ToString();
+        CharAgility.text = character.agility.ToString();
+        CharPower.text = character.power.ToString();
+        CharInitiative.text = character.initiative.ToString();
     }
 
     public void updateTurnCounter(int currentTurnNumber)

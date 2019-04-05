@@ -44,14 +44,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   locked: 0
-  abilityName: HoneyHeal
-  manaCost: 0
+  abilityName: Honeycomb Bandage
+  description: Heal target with your honeycomb bandages.
+  manaCost: 15
   healthCost: 0
-  actionPointsCost: 0
-  cooldown: 0
-  baseDamage: 0
+  actionPointsCost: 1
+  cooldown: 1
+  currentCooldown: 0
+  baseDamage: -15
   strengthMultiplier: 0
-  powerMultiplier: 0
+  powerMultiplier: -5
   agilityMultiplier: 0
   range: 1
   applyStun: 0

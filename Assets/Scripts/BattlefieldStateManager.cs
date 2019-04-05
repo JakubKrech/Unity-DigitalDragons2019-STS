@@ -96,9 +96,9 @@ public class BattlefieldStateManager : MonoBehaviour
             if (c.alive) CharactersByInitiative.Add(c);
         }
 
-        CharactersByInitiative.OrderBy(characters=>characters.initiative);
+        CharactersByInitiative.Sort((x, y) => x.initiative.CompareTo(y.initiative));
         CharactersByInitiative.Reverse();
-
+        
         foreach (Character c in CharactersByInitiative)
         {
             Debug.Log(c.charName + ", initiative: " + c.initiative);

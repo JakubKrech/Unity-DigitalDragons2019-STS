@@ -90,11 +90,12 @@ public class Button : MonoBehaviour
         if(MSM.currentMouseState == MouseStateManager.MouseStateMachine.CHOOSEACTION)
         {
             Ability chosenAbility = MSM.BattlefieldSM.CharactersByInitiative[0].abilities[abilityIndex];
+            Character attacker = MSM.BattlefieldSM.CharactersByInitiative[0];
 
             if(!checkLocked(chosenAbility) && checkCooldown(chosenAbility) 
                 && checkAP(chosenAbility) && checkMana(chosenAbility))
             {
-                MSM.BattlefieldSM.CharactersByInitiative[0].DeActivateMovableTiles();
+                attacker.DeActivateNeighboringTiles();
                 Debug.Log("ABILITY " + chosenAbility.name + " CLICKED SUCCESFULLY");
 
                 Color32 borderColor = new Color32(0, 255, 0, 255);
@@ -102,6 +103,12 @@ public class Button : MonoBehaviour
                 MSM.clickedAbility = chosenAbility;
                 MSM.clickedAbilityIndex = abilityIndex;
                 MSM.clickedAbilityBorder = UIM.AbilityBarBorders[abilityIndex];
+
+                if(chosenAbility.range)
+                    attacker.ActivateAvailableTilesForRange();
+                else
+                    attacker.ActivateAvailableTilesForMelee();
+
                 MSM.currentMouseState = MouseStateManager.MouseStateMachine.CHOOSETARGET;
             }
         }
@@ -184,7 +191,11 @@ public class Button : MonoBehaviour
         if(activeCharacter.abilities[abilityIndex].manaCost > 0) UIM.ADPSkillCostValue.text += activeCharacter.abilities[abilityIndex].manaCost.ToString() + " MP ";
         if(activeCharacter.abilities[abilityIndex].healthCost > 0) UIM.ADPSkillCostValue.text += activeCharacter.abilities[abilityIndex].healthCost.ToString() + " HP";
 
-        UIM.ADPSkillDamageValue.text = activeCharacter.abilities[abilityIndex].calculateDamage(activeCharacter).ToString();
+        int damageDealt = activeCharacter.abilities[abilityIndex].calculateDamage(activeCharacter);
+        if(damageDealt > 0) UIM.ADPSkillDamageValue.text = "Damage:  " + damageDealt;
+        else UIM.ADPSkillDamageValue.text = "Heal:  " + (-damageDealt);
+
+
         UIM.ADPSkillCooldown.text = "Cooldown: " + activeCharacter.abilities[abilityIndex].cooldown.ToString();
         if(activeCharacter.abilities[abilityIndex].range)
             UIM.ADPRangedMelee.text = "RANGED";

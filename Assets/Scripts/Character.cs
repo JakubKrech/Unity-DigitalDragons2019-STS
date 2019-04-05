@@ -2,15 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Character : MonoBehaviour
-{
-    [Header("Character Info")]
+public class Character : MonoBehaviour {
+    [Header ("Character Info")]
     public bool playerControlled;
     public bool alive = true;
-    public enum CharacterStateMachine{ WAIT, CHOOSEACTION, AFTERACTION, ENDTURN }
+    public enum CharacterStateMachine { WAIT, CHOOSEACTION, AFTERACTION, ENDTURN }
     public CharacterStateMachine characterState = CharacterStateMachine.WAIT;
 
-    [Header("Character Stats")]
+    [Header ("Character Stats")]
     public string charName;
     public int level, currentEXP;
     public int maxHP, currentHP;
@@ -24,7 +23,7 @@ public class Character : MonoBehaviour
     public int critChance;
     public List<Ability> abilities;
 
-    [Header("Character Components")]
+    [Header ("Character Components")]
     public HexCell hexCell;
     Material material;
     public Sprite characterAvatar;
@@ -33,113 +32,95 @@ public class Character : MonoBehaviour
     public SpriteRenderer characterSprite;
 
     /// Awake is called when the script instance is being loaded.
-    void Awake()
-    {
-        material = gameObject.GetComponentInChildren<SpriteRenderer>().material;
+    void Awake () {
+        material = gameObject.GetComponentInChildren<SpriteRenderer> ().material;
         material.renderQueue = 3006; // without it hexes dissapear while moving the camera
 
-        InitializeAbilities();
+        InitializeAbilities ();
     }
 
     // Start is called before the first frame update
-    void Start()
-    {
-        BSM = GameObject.Find("BattlefieldStateManager").GetComponent<BattlefieldStateManager>();
+    void Start () {
+        BSM = GameObject.Find ("BattlefieldStateManager").GetComponent<BattlefieldStateManager> ();
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        switch(characterState)
-        {
-            case(CharacterStateMachine.WAIT):
-                    // idle
+    void Update () {
+        switch (characterState) {
+            case (CharacterStateMachine.WAIT):
+                // idle
                 break;
 
-            case(CharacterStateMachine.CHOOSEACTION):
-                    Debug.Log("Turn of character: " + this.charName);
-                    ActivateMovableTiles();
-                    //handle player input regarding actions to be taken by character
-                    BSM.MSM.currentMouseState = MouseStateManager.MouseStateMachine.CHOOSEACTION;
+            case (CharacterStateMachine.CHOOSEACTION):
+                Debug.Log ("Turn of character: " + this.charName);
+                ActivateMovableTiles ();
+                //handle player input regarding actions to be taken by character
+                BSM.MSM.currentMouseState = MouseStateManager.MouseStateMachine.CHOOSEACTION;
 
-                    characterState = CharacterStateMachine.WAIT;
+                characterState = CharacterStateMachine.WAIT;
                 break;
 
-            case(CharacterStateMachine.AFTERACTION):
-                    if(currentActionPoints == 0) 
-                    {
-                        Debug.Log("Character " + charName + " ran out of Action Points! Turn ended!");
-                        characterState = CharacterStateMachine.ENDTURN;
-                    }
-                    else characterState = CharacterStateMachine.CHOOSEACTION;
+            case (CharacterStateMachine.AFTERACTION):
+                if (currentActionPoints == 0) {
+                    Debug.Log ("Character " + charName + " ran out of Action Points! Turn ended!");
+                    characterState = CharacterStateMachine.ENDTURN;
+                } else characterState = CharacterStateMachine.CHOOSEACTION;
                 break;
 
-            case(CharacterStateMachine.ENDTURN):
-                    DeActivateMovableTiles();
-                    Debug.Log(charName + " has ended his turn!");
-                    characterState = CharacterStateMachine.WAIT;
-                    BSM.CharactersByInitiative.RemoveAt(0);
-                    BSM.currentState = BattlefieldStateManager.BattlefieldStateMachine.PERFORMTURN;
+            case (CharacterStateMachine.ENDTURN):
+                DeActivateNeighboringTiles ();
+                Debug.Log (charName + " has ended his turn!");
+                characterState = CharacterStateMachine.WAIT;
+                BSM.CharactersByInitiative.RemoveAt (0);
+                BSM.currentState = BattlefieldStateManager.BattlefieldStateMachine.PERFORMTURN;
                 break;
         }
     }
 
-
-    public void performAITurn()
-    {
-        StartCoroutine(SleepForSecondsAITurn(5));
+    public void performAITurn () {
+        StartCoroutine (SleepForSecondsAITurn (5));
     }
 
-    IEnumerator SleepForSecondsAITurn(int s)
-    {
-        Debug.Log("AI Controlled Character " + this.charName + " completes his turn now");
-        yield return new WaitForSeconds(2);
-        BSM.CharactersByInitiative.RemoveAt(0);
+    IEnumerator SleepForSecondsAITurn (int s) {
+        Debug.Log ("AI Controlled Character " + this.charName + " completes his turn now");
+        yield return new WaitForSeconds (2);
+        BSM.CharactersByInitiative.RemoveAt (0);
         BSM.currentState = BattlefieldStateManager.BattlefieldStateMachine.PERFORMTURN;
     }
 
-    void InitializeAbilities()
-    {
-         GameObject abilitiesParentObject = new GameObject();
+    void InitializeAbilities () {
+        GameObject abilitiesParentObject = new GameObject ();
         abilitiesParentObject.transform.parent = this.transform;
         abilitiesParentObject.name = "Abilities";
 
-        abilities = new List<Ability>();
+        abilities = new List<Ability> ();
 
-        for(int i = 0; i < abilitiesPrefabs.Count; i++){
-            Ability ab = (Ability)Instantiate(abilitiesPrefabs[i], new Vector3(0,0,0), Quaternion.identity, abilitiesParentObject.transform);
+        for (int i = 0; i < abilitiesPrefabs.Count; i++) {
+            Ability ab = (Ability) Instantiate (abilitiesPrefabs[i], new Vector3 (0, 0, 0), Quaternion.identity, abilitiesParentObject.transform);
             ab.name = ab.abilityName;
-            abilities.Add(ab);
+            abilities.Add (ab);
         }
     }
 
-    public void ActivateMovableTiles()
-    {
-        foreach (HexCell neighbor in hexCell.neighbors)
-        {
-            if(neighbor != null && !neighbor.occupied) 
-            {
-                neighbor.HexBorder.color = Color.green;
-                neighbor.HexBorder.enabled = true;
-                neighbor.active = true;
-                
-            }
-            else if(neighbor != null && neighbor.occupiedBy.playerControlled){
+    public void ActivateMovableTiles () {
+        foreach (HexCell neighbor in hexCell.neighbors) {
+            if (neighbor != null && !neighbor.occupied) {
                 neighbor.HexBorder.color = Color.blue;
                 neighbor.HexBorder.enabled = true;
-            }
-            else if(neighbor != null && !neighbor.occupiedBy.playerControlled){
+                neighbor.active = true;
+
+            } else if (neighbor != null && neighbor.occupiedBy.playerControlled) {
+                neighbor.HexBorder.color = Color.green;
+                neighbor.HexBorder.enabled = true;
+            } else if (neighbor != null && !neighbor.occupiedBy.playerControlled) {
                 neighbor.HexBorder.color = Color.red;
                 neighbor.HexBorder.enabled = true;
             }
         }
     }
-    public void DeActivateMovableTiles()
-    {
-        foreach (HexCell neighbor in hexCell.neighbors)
-        {
-            if(neighbor != null) 
-            {
+    public void DeActivateNeighboringTiles () {
+        foreach (HexCell neighbor in hexCell.neighbors) {
+            if (neighbor != null) {
                 neighbor.HexBorder.color = Color.black;
                 neighbor.HexBorder.enabled = false;
                 neighbor.active = false;
@@ -147,12 +128,9 @@ public class Character : MonoBehaviour
         }
     }
 
-    public void ActivateAllEnemyTiles()
-    {
-        foreach (Character character in BSM.CharactersByInitiative)
-        {
-            if(!character.playerControlled)
-            {
+    public void ActivateAllEnemyTiles () {
+        foreach (Character character in BSM.CharactersByInitiative) {
+            if (!character.playerControlled) {
                 character.hexCell.HexBorder.color = Color.red;
                 character.hexCell.HexBorder.enabled = true;
                 character.hexCell.active = true;
@@ -160,20 +138,46 @@ public class Character : MonoBehaviour
         }
     }
 
-    public void ActivateInMeleeRangeEnemyTiles()
-    {
-        
+    public void ActivateAvailableTilesForMelee () {
+        foreach (HexCell neighbour in this.hexCell.neighbors) {
+            if (neighbour.occupied) {
+                if (neighbour.occupiedBy.playerControlled == true)
+                    neighbour.HexBorder.color = Color.green;
+                else if (neighbour.occupiedBy.playerControlled == false)
+                    neighbour.HexBorder.color = Color.red;
+                neighbour.HexBorder.enabled = true;
+                neighbour.active = true;
+            }
+        }
+    }
+    public void ActivateAvailableTilesForRange () {
+        foreach (Character character in BSM.battlefield.characters) {
+            if(character.alive){
+                if (character.playerControlled == true)
+                    character.hexCell.HexBorder.color = Color.green;
+                else if (character.playerControlled == false)
+                    character.hexCell.HexBorder.color = Color.red;
+                character.hexCell.HexBorder.enabled = true;
+                character.hexCell.active = true;
+            }
+        }
+    }
+    public void DeactivateAvailableTilesForRange () {
+        foreach (Character character in BSM.CharactersByInitiative) {
+            character.hexCell.HexBorder.color = Color.black;
+            character.hexCell.HexBorder.enabled = false;
+            character.hexCell.active = false;
+        }
     }
 
-    public void MoveCharacter(HexCell destination)
-    {
-        DeActivateMovableTiles();
+    public void MoveCharacter (HexCell destination) {
+        DeActivateNeighboringTiles ();
 
         hexCell.occupied = false;
         hexCell.occupiedBy = null;
 
         hexCell = destination;
-        
+
         hexCell.occupied = true;
         hexCell.occupiedBy = this;
 
@@ -185,16 +189,14 @@ public class Character : MonoBehaviour
         //ActivateMovableTiles();
     }
 
-    public void characterDies()
-    {
+    public void characterDies () {
         var rotationVector = transform.rotation.eulerAngles;
         rotationVector.z = 270;
-        this.transform.rotation = Quaternion.Euler(rotationVector);
+        this.transform.rotation = Quaternion.Euler (rotationVector);
 
-        if((BSM.checkIfAlliesLeft(BSM.battlefield.characters) && BSM.checkIfEnemiesLeft(BSM.battlefield.characters)) == false)
-        {
+        if ((BSM.checkIfAlliesLeft (BSM.battlefield.characters) && BSM.checkIfEnemiesLeft (BSM.battlefield.characters)) == false) {
             this.characterState = CharacterStateMachine.ENDTURN;
         }
-    
+
     }
 }

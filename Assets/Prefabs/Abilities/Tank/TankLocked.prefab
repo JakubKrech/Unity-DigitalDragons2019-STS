@@ -44,16 +44,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   locked: 1
-  abilityName: TankLocked
+  abilityName: Ability Locked
+  description: Ability is still locked, level up to unlock it!
   manaCost: 0
   healthCost: 0
-  actionPointsCost: 1
-  cooldown: 1
-  baseDamage: 10
-  strengthMultiplier: 4
-  powerMultiplier: 1
-  agilityMultiplier: 1
-  range: 1
+  actionPointsCost: 0
+  cooldown: 0
+  currentCooldown: 0
+  baseDamage: 0
+  strengthMultiplier: 0
+  powerMultiplier: 0
+  agilityMultiplier: 0
+  range: 0
   applyStun: 0
   removeStun: 0
   applyImmobilize: 0

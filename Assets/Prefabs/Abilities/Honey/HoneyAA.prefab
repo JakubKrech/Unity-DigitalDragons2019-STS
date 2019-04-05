@@ -26,12 +26,22 @@ PrefabInstance:
     - target: {fileID: 350390135503976438, guid: 7ae23bf71a5c5f34e887332863493378,
         type: 3}
       propertyPath: abilityName
-      value: HoneyAA
+      value: Basic Attack
       objectReference: {fileID: 0}
     - target: {fileID: 350390135503976438, guid: 7ae23bf71a5c5f34e887332863493378,
         type: 3}
       propertyPath: description
-      value: 
+      value: Attacks nearby enemy with honey jar.
+      objectReference: {fileID: 0}
+    - target: {fileID: 350390135503976438, guid: 7ae23bf71a5c5f34e887332863493378,
+        type: 3}
+      propertyPath: strengthMultiplier
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 350390135503976438, guid: 7ae23bf71a5c5f34e887332863493378,
+        type: 3}
+      propertyPath: powerMultiplier
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7948182734852749928, guid: 7ae23bf71a5c5f34e887332863493378,
         type: 3}

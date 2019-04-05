@@ -44,16 +44,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   locked: 0
-  abilityName: TankShieldBash
-  manaCost: 0
+  abilityName: Shield Bash
+  description: Attacks nearby enemy with shield. Stuns him for one turn.
+  manaCost: 15
   healthCost: 0
   actionPointsCost: 1
-  cooldown: 1
+  cooldown: 2
+  currentCooldown: 0
   baseDamage: 10
   strengthMultiplier: 4
   powerMultiplier: 1
   agilityMultiplier: 1
-  range: 1
+  range: 0
   applyStun: 1
   removeStun: 0
   applyImmobilize: 0
