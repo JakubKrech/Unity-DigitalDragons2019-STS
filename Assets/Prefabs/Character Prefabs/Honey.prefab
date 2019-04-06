@@ -239,6 +239,7 @@ MonoBehaviour:
   abilities: []
   hexCell: {fileID: 0}
   characterAvatar: {fileID: 21300000, guid: 90113d4a8edff024086161329654b970, type: 3}
+  BSM: {fileID: 0}
   abilitiesPrefabs:
   - {fileID: 2583644223828513545, guid: 8e10e676f47d5a2418ebd0a0347b17c5, type: 3}
   - {fileID: 319059931983957668, guid: 18b5196befdcb77459b93e8300d48a0e, type: 3}

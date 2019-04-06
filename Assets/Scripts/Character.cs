@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DragonBones;
 
 public class Character : MonoBehaviour {
     [Header ("Character Info")]
@@ -25,16 +26,17 @@ public class Character : MonoBehaviour {
 
     [Header ("Character Components")]
     public HexCell hexCell;
-    Material material;
+    //Material material;
     public Sprite characterAvatar;
     public BattlefieldStateManager BSM;
     public List<Ability> abilitiesPrefabs;
     public SpriteRenderer characterSprite;
+    public DragonBones.UnityArmatureComponent characterArmature;
 
     /// Awake is called when the script instance is being loaded.
     void Awake () {
-        material = gameObject.GetComponentInChildren<SpriteRenderer> ().material;
-        material.renderQueue = 3006; // without it hexes dissapear while moving the camera
+       // material = gameObject.GetComponentInChildren<SpriteRenderer> ().material;
+       // material.renderQueue = 3006; // without it hexes dissapear while moving the camera
 
         InitializeAbilities ();
     }
@@ -192,6 +194,9 @@ public class Character : MonoBehaviour {
         this.transform.position = hexCell.transform.position;
 
         this.characterSprite.sortingLayerName = "Row" + destination.y;
+        //this.characterArmature.sortingLayerName = "Row" + destination.y;
+        //characterArmature.animation.Stop(); //works!
+        //characterArmature.animationName = "idle"; // should work
 
         // moving consumes one Action Point
         currentActionPoints--;

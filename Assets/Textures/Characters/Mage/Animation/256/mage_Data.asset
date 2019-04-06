@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a64e5b0e436d4bed9780211ae245f7b, type: 3}
+  m_Name: mage_Data
+  m_EditorClassIdentifier: 
+  dataName: gowno
+  dragonBonesJSON: {fileID: 4900000, guid: 4412b3df5179599409727c0bed21f6cf, type: 3}
+  textureAtlas:
+  - textureAtlasJSON: {fileID: 4900000, guid: d999b7945819778419a1ab66bc9dfc86, type: 3}
+    texture: {fileID: 2800000, guid: 5af2461d4ccb2984f903b856c28d1a64, type: 3}
+    material: {fileID: 2100000, guid: 314dc614188598249989c3a9be060956, type: 2}
+    uiMaterial: {fileID: 0}

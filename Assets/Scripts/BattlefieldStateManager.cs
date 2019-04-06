@@ -120,7 +120,7 @@ public class BattlefieldStateManager : MonoBehaviour
             // Update skills cooldowns
             foreach (Ability ability in c.abilities)
             {
-                ability.currentCooldown -= 1;
+                if(ability.currentCooldown > 0) ability.currentCooldown -= 1;
             }
         }
     }

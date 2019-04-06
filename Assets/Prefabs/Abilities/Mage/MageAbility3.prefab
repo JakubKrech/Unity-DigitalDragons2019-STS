@@ -51,7 +51,7 @@ MonoBehaviour:
   actionPointsCost: 2
   cooldown: 4
   currentCooldown: 0
-  baseDamage: 0
+  baseDamage: 5555
   strengthMultiplier: 0
   powerMultiplier: 0
   agilityMultiplier: 0
