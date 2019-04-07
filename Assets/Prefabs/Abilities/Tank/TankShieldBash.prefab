@@ -56,8 +56,11 @@ MonoBehaviour:
   powerMultiplier: 1
   agilityMultiplier: 1
   range: 0
-  applyStun: 1
+  stunLength: 1
   removeStun: 0
-  applyImmobilize: 0
+  immobilizeLength: 0
   removeImmobilize: 0
+  applyTaunt: 0
+  tauntLength: 0
+  removeTaunt: 0
   icon: {fileID: 21300000, guid: adbdb2b9b35863d4298b5f8cfbca20cd, type: 3}

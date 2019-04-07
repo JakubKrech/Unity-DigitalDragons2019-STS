@@ -63,8 +63,10 @@ public class MouseStateManager : MonoBehaviour {
                 if (Input.GetMouseButtonDown (0)) {
                     HexCell clickedHex = hit2D.collider.transform.parent.gameObject.GetComponent<HexCell> ();
                     if (clickedHex.active) {
-                        BattlefieldSM.CharactersByInitiative[0].MoveCharacter (clickedHex);
-                        BattlefieldSM.CharactersByInitiative[0].characterState = Character.CharacterStateMachine.AFTERACTION;
+                        //BattlefieldSM.CharactersByInitiative[0].MoveCharacter (clickedHex);
+                        StartCoroutine(BattlefieldSM.CharactersByInitiative[0].MoveCharacter (clickedHex));
+                        //BattlefieldSM.CharactersByInitiative[0].characterState = Character.CharacterStateMachine.AFTERACTION;
+                        BattlefieldSM.CharactersByInitiative[0].characterState = Character.CharacterStateMachine.MOVING;
                         currentMouseState = MouseStateMachine.IDLE;
                     }
                 }
@@ -90,7 +92,7 @@ public class MouseStateManager : MonoBehaviour {
 
                     Character attacked = hit2D.transform.parent.gameObject.GetComponent<Character> ();
                     clickedAbility.dealDamage (attacker, attacked);
-                    clickedAbility.currentCooldown = clickedAbility.cooldown;
+                    //clickedAbility.currentCooldown = clickedAbility.cooldown;
                     clickedAbilityBorder.color = Color.white;
 
                     if (attacker.currentHP > 0) {

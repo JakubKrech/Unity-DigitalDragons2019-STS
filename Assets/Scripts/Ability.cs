@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Ability : MonoBehaviour
 {
@@ -19,10 +20,12 @@ public class Ability : MonoBehaviour
     public float agilityMultiplier = 0;
     //public int range;
     public bool range;
-    public int applyStun;
+    public int stunLength;
     public bool removeStun = false;
-    public int applyImmobilize;
+    public int immobilizeLength;
     public bool removeImmobilize = false;
+    public int tauntLength;
+    public bool removeTaunt = false;
 
     [Header("Elements")]
     public Sprite icon;
@@ -87,6 +90,14 @@ public class Ability : MonoBehaviour
             Debug.Log(attacker.charName + " DIES!!!");
         }
         else attacker.currentHP -= healthCost;
+        if(healthCost != 0){
+            StartCoroutine(showDmgIndicator(attacker, healthCost, attacker.BSM.UIM.currentIndicatorText));
+            if(attacker.BSM.UIM.currentIndicatorText + 1 >= attacker.BSM.UIM.damageIndicatorTexts.Count) attacker.BSM.UIM.currentIndicatorText = 0;
+            else ++attacker.BSM.UIM.currentIndicatorText;
+        } 
+
+        if(attacker.currentHP > attacker.maxHP) attacker.currentHP = attacker.maxHP;
+        if(attacker.currentMana > attacker.maxMana) attacker.currentMana = attacker.maxMana;
 
         // manaCost
         if(attacker.currentMana - manaCost < 0) attacker.currentMana = 0;
@@ -94,5 +105,75 @@ public class Ability : MonoBehaviour
 
         // APCost
         attacker.currentActionPoints -= actionPointsCost;
+
+        // Effects
+        if(stunLength > 0){ 
+            attacked.stunnedFor += this.stunLength; 
+            if(attacked.stunnedFor > this.stunLength) attacked.stunnedFor = this.stunLength;
+        }
+        if(immobilizeLength > 0){
+            attacked.immobilizedFor += this.immobilizeLength;
+            if(attacked.immobilizedFor > this.immobilizeLength) attacked.immobilizedFor = this.immobilizeLength;
+        }
+
+        if(tauntLength > 0){
+            attacked.tauntedFor += this.tauntLength;
+            if(attacked.tauntedFor > this.tauntLength) attacked.tauntedFor = this.tauntLength;
+
+            attacked.tauntTarget = attacker;
+        }
+
+        if(removeStun) attacked.stunnedFor = 0;
+        if(removeImmobilize) attacked.immobilizedFor = 0;
+        if(removeTaunt) attacked.tauntedFor = 0;
+
+        // ability cd
+        currentCooldown = cooldown;
+
+        // show dmg indicator
+        StartCoroutine(showDmgIndicator(attacked, damageDealt, attacker.BSM.UIM.currentIndicatorText));
+        if(attacker.BSM.UIM.currentIndicatorText + 1 >= attacker.BSM.UIM.damageIndicatorTexts.Count) attacker.BSM.UIM.currentIndicatorText = 0;
+        else ++attacker.BSM.UIM.currentIndicatorText;
+    }
+
+    IEnumerator showDmgIndicator(Character target, int dmg, int ind)
+    {
+        int fadeSpeed = 3;
+
+        // int index = target.BSM.UIM.currentIndicatorText;
+        // if(target.BSM.UIM.currentIndicatorText >= target.BSM.UIM.damageIndicatorTexts.Count) target.BSM.UIM.currentIndicatorText = 0;
+        // else ++target.BSM.UIM.currentIndicatorText;
+        int index = ind;
+        Text text = target.BSM.UIM.damageIndicatorTexts[index];
+        RectTransform rectTransform = text.GetComponent<RectTransform>();
+
+        text.text = dmg.ToString();
+        if(dmg > 0) text.color = new Color32(255, 12, 0 , 0);
+        else text.color = new Color32(31, 217, 0 , 0);
+
+        Vector3 viewportPoint = Camera.main.WorldToViewportPoint(target.transform.position);
+
+        rectTransform.anchorMin = viewportPoint;
+        rectTransform.anchorMax = viewportPoint;
+
+
+        while(text.color.a < 1.0f)
+        {
+            text.color = new Color(text.color.r, text.color.g,
+                text.color.b, text.color.a + (Time.deltaTime * fadeSpeed));
+
+            yield return null;
+        }
+        //text.transform
+
+        yield return new WaitForSeconds (2);
+
+        while(text.color.a > 0.0f)
+        {
+            text.color = new Color(text.color.r, text.color.g,
+                text.color.b, text.color.a - (Time.deltaTime * fadeSpeed));
+            
+            yield return null;
+        }
     }
 }

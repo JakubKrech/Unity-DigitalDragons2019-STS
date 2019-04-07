@@ -43,6 +43,11 @@ PrefabInstance:
       propertyPath: powerMultiplier
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 350390135503976438, guid: 7ae23bf71a5c5f34e887332863493378,
+        type: 3}
+      propertyPath: cooldown
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7948182734852749928, guid: 7ae23bf71a5c5f34e887332863493378,
         type: 3}
       propertyPath: m_LocalPosition.x

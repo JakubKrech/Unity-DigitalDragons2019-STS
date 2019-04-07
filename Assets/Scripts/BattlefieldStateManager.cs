@@ -37,7 +37,8 @@ public class BattlefieldStateManager : MonoBehaviour
                 break;
 
             case(BattlefieldStateMachine.PERFORMTURN):
-                    if(CharactersByInitiative.Any() && checkIfEnemiesLeft(battlefield.characters) && checkIfAlliesLeft(battlefield.characters)){
+                    if(CharactersByInitiative.Any() && checkIfEnemiesLeft(battlefield.characters) &&
+                        checkIfAlliesLeft(battlefield.characters)){
                         battlefield.UIManager.updateOrderQueue(CharactersByInitiative);
                         battlefield.UIManager.updateUIToChosenCharacter(CharactersByInitiative[0]);
                         lastActiveCharacter = CharactersByInitiative[0];
@@ -58,7 +59,7 @@ public class BattlefieldStateManager : MonoBehaviour
                     if(checkIfEnemiesLeft(battlefield.characters) && checkIfAlliesLeft(battlefield.characters)){
                         Debug.Log("<color=green>-----NEW TURN HAS STARTED-----</color>");
                         UIM.updateTurnCounter(++currentTurn);
-                        UpdateCharactersStats();
+                        //UpdateCharactersStats();
                         FillActiveCharsByInitiative();
                         currentState = BattlefieldStateMachine.PERFORMTURN;
                     }
@@ -105,25 +106,30 @@ public class BattlefieldStateManager : MonoBehaviour
         }
     }
 
-    void UpdateCharactersStats()
-    {
-        foreach (Character c in battlefield.characters)
-        {
-            // Update Action Points
-            c.currentActionPoints += c.actionPointsRegen;
-            if(c.currentActionPoints > c.maxActionPoints) c.currentActionPoints = c.maxActionPoints;
+    // void UpdateCharactersStats()
+    // {
+    //     foreach (Character c in battlefield.characters)
+    //     {
+    //         // Update Action Points
+    //         c.currentActionPoints += c.actionPointsRegen;
+    //         if(c.currentActionPoints > c.maxActionPoints) c.currentActionPoints = c.maxActionPoints;
 
-            // Update Mana
-            c.currentMana += c.regenMana + c.power;
-            if(c.currentMana > c.maxMana) c.currentMana = c.maxMana;
+    //         // Update Mana
+    //         c.currentMana += c.regenMana + c.power;
+    //         if(c.currentMana > c.maxMana) c.currentMana = c.maxMana;
 
-            // Update skills cooldowns
-            foreach (Ability ability in c.abilities)
-            {
-                if(ability.currentCooldown > 0) ability.currentCooldown -= 1;
-            }
-        }
-    }
+    //         // Update skills cooldowns
+    //         foreach (Ability ability in c.abilities)
+    //         {
+    //             if(ability.currentCooldown > 0) ability.currentCooldown -= 1;
+    //         }
+
+    //         // Update effects
+    //         --c.stunnedFor;
+    //         --c.immobilizedFor;
+    //         --c.tauntedFor;
+    //     }
+    // }
 
     public bool checkIfEnemiesLeft(List<Character> list)
     {

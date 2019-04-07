@@ -51,13 +51,15 @@ MonoBehaviour:
   actionPointsCost: 3
   cooldown: 3
   currentCooldown: 0
-  baseDamage: 75
+  baseDamage: 35
   strengthMultiplier: 0
-  powerMultiplier: 10
+  powerMultiplier: 7
   agilityMultiplier: 0
   range: 1
-  applyStun: 0
+  stunLength: 0
   removeStun: 0
-  applyImmobilize: 0
+  immobilizeLength: 0
   removeImmobilize: 0
+  tauntLength: 0
+  removeTaunt: 0
   icon: {fileID: 21300000, guid: 599dd7ce002931846836e93502c9aeac, type: 3}

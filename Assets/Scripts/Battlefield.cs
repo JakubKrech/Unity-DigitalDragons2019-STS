@@ -99,7 +99,7 @@ public class Battlefield : MonoBehaviour
         newChar.name = charPrefab.charName;
         newChar.hexCell = charPosition;
         newChar.characterSprite.sortingLayerName = "Row" + newChar.hexCell.y;
-        //newChar.characterArmature.sortingLayerName = "Row" + newChar.hexCell.y;
+        newChar.characterArmature.sortingLayerName = "Row" + newChar.hexCell.y;
         characters.Add(newChar);
 
         charPosition.occupied = true;

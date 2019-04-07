@@ -208,8 +208,9 @@ public class Button : MonoBehaviour
             UIM.ADPRangedMelee.text = "MELEE";
 
         UIM.ADPSkillEffects.text = "Effects:  ";
-        if(activeCharacter.abilities[abilityIndex].applyStun > 0) UIM.ADPSkillEffects.text += "STUN (" + activeCharacter.abilities[abilityIndex].applyStun + ") ";
-        if(activeCharacter.abilities[abilityIndex].applyImmobilize > 0) UIM.ADPSkillEffects.text += "IMMOBILIZE (" + activeCharacter.abilities[abilityIndex].applyImmobilize + ")";
+        if(activeCharacter.abilities[abilityIndex].stunLength > 0) UIM.ADPSkillEffects.text += "STUN (" + activeCharacter.abilities[abilityIndex].stunLength + ") ";
+        if(activeCharacter.abilities[abilityIndex].immobilizeLength > 0) UIM.ADPSkillEffects.text += "IMMOBILIZE (" + activeCharacter.abilities[abilityIndex].immobilizeLength + ")";
+        if(activeCharacter.abilities[abilityIndex].tauntLength > 0) UIM.ADPSkillEffects.text += "TAUNT (" + activeCharacter.abilities[abilityIndex].tauntLength + ")";
     }
 
     public void EndScreenButton()

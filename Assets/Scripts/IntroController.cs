@@ -18,7 +18,7 @@ public class IntroController : MonoBehaviour {
 
     [Header ("Script variables")]
     public int currentSceneStage = 0;
-    public bool textOnLeft = true;
+    public bool textOnLeft = false;
 
     // intro dialogs
 
@@ -30,9 +30,9 @@ public class IntroController : MonoBehaviour {
     private string text0 = "text0";
     private string text1 = "text1";
     private string text2 = "text2";
-    // private string text3 = "text3";
-    // private string text4 = "text4";
-    // private string text5 = "text5";
+    private string text3 = "text3";
+    private string text4 = "text4";
+    private string text5 = "text5";
     // private string text6 = "text6";
 
     private List<string> textContainer;
@@ -44,9 +44,9 @@ public class IntroController : MonoBehaviour {
         textContainer.Add (text0);
         textContainer.Add (text1);
         textContainer.Add (text2);
-        // textContainer.Add(text3);
-        // textContainer.Add(text4);
-        // textContainer.Add(text5);
+        textContainer.Add(text3);
+        textContainer.Add(text4);
+        textContainer.Add(text5);
 
         middleTextField.text = textStart;
         StartCoroutine(fadeIN(middleTextField, 5));
@@ -71,30 +71,26 @@ public class IntroController : MonoBehaviour {
         StopAllCoroutines();
 
         if (middleTextArea.color.a > 0.0f) {
-            //StartCoroutine (fadeOUT (middleTextArea));
             StartCoroutine (fadeOUT (middleTextField));
+            middleTextField.gameObject.SetActive(false);
         }
 
         if (textOnLeft) {
-            //StartCoroutine (fadeOUT (rightTextArea));
-            StartCoroutine (fadeOUT (leftImage));
-            leftTextField.text = textContainer[step];
-            StartCoroutine (fadeIN (leftTextField));
-            //StartCoroutine (fadeIN (leftTextArea));
-            
-            StartCoroutine (fadeOUT (rightTextField));
-            rightImage.sprite = artContainer[step];
-            StartCoroutine (fadeIN (rightImage));
-        } else {
-            //StartCoroutine (fadeOUT (leftTextArea));
             StartCoroutine (fadeOUT (rightImage));
-
             rightTextField.text = textContainer[step];
             StartCoroutine (fadeIN (rightTextField));
-            //StartCoroutine (fadeIN (rightTextArea));
+
             StartCoroutine (fadeOUT (leftTextField));
             leftImage.sprite = artContainer[step];
             StartCoroutine (fadeIN (leftImage));
+        } else {
+            StartCoroutine (fadeOUT (leftImage));
+            leftTextField.text = textContainer[step];
+            StartCoroutine (fadeIN (leftTextField));
+
+            StartCoroutine (fadeOUT (rightTextField));
+            rightImage.sprite = artContainer[step];
+            StartCoroutine (fadeIN (rightImage));
         }
 
         if (textOnLeft) textOnLeft = false;
@@ -124,7 +120,7 @@ public class IntroController : MonoBehaviour {
     }
 
     public IEnumerator fadeOUT (Text a) {
-        int fadeSpeed = 5;
+        int fadeSpeed = 2;
 
         while (a.color.a > 0.0f) {
             a.color = new Color (a.color.r, a.color.g,

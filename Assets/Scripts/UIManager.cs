@@ -15,6 +15,9 @@ public class UIManager : MonoBehaviour
     public Slider ManaBar;
     public Text ManaBarText, ManaRegenText;
     public Text CharStrength, CharAgility, CharPower, CharInitiative;
+    public Image StunIndicator, ImmobilizeIndicator, TauntIndicator;
+    public Text StunIndicatorText, ImmobilizeIndicatorText, TauntIndicatorText;
+    public Image Rune;
 
     [Header("Queue")]
     public Image[] OrderQueue;
@@ -39,7 +42,9 @@ public class UIManager : MonoBehaviour
     public Text ADPAPCost;
     public Text ADPSkillCooldown;
     public Text ADPRangedMelee;
-    
+    [Header("Damage Indicator")]
+    public List<Text> damageIndicatorTexts;
+    public int currentIndicatorText = 0;
 
     [Header("Other")]
     public Text turnCounterText;
@@ -110,6 +115,32 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    public void updateEffectIndicators(Character character)
+    {
+        if(character.stunnedFor > 0 || character.immobilizedFor > 0 || character.tauntedFor > 0){
+            if(character.stunnedFor > 0){
+                StunIndicatorText.text = "Stun(" + character.stunnedFor + ")";
+                StunIndicator.gameObject.SetActive(true);
+            }
+            if(character.immobilizedFor > 0){
+                ImmobilizeIndicatorText.text = "Stuck(" + character.immobilizedFor + ")";
+                ImmobilizeIndicator.gameObject.SetActive(true);
+            }
+            if(character.tauntedFor > 0){
+                TauntIndicatorText.text = "Taunted(" + character.tauntedFor + ")";
+                TauntIndicator.sprite = character.tauntTarget.characterAvatar;
+                TauntIndicator.gameObject.SetActive(true);
+            }
+            Rune.gameObject.SetActive(false);
+        }
+        else {
+            StunIndicator.gameObject.SetActive(false);
+            ImmobilizeIndicator.gameObject.SetActive(false);
+            TauntIndicator.gameObject.SetActive(false);
+            Rune.gameObject.SetActive(true);
+        }
+    }
+
     public void updateUIToChosenCharacter(Character character)
     {
         CharacterName.text = character.charName;
@@ -118,6 +149,7 @@ public class UIManager : MonoBehaviour
         updateHealthBar(character);
         updateManaBar(character);
         updateAbilityBar(character);
+        updateEffectIndicators(character);
 
         CharStrength.text = character.strength.ToString();
         CharAgility.text = character.agility.ToString();
