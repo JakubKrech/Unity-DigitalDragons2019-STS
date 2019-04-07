@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   locked: 0
-  abilityName: HoneyImmobilize
+  abilityName: Sticky Honey
   description: Immobilizes target with a goo of sticky honey.
   manaCost: 25
   healthCost: 0
@@ -60,7 +60,6 @@ MonoBehaviour:
   removeStun: 0
   immobilizeLength: 1
   removeImmobilize: 0
-  applyTaunt: 0
   tauntLength: 0
   removeTaunt: 0
   icon: {fileID: 21300000, guid: 2d956038de737f342bbf5ad81d996717, type: 3}

@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   locked: 0
-  abilityName: Burst of power
+  abilityName: Pinch of Thunder
   description: Deal massive dmg to target.
   manaCost: 40
   healthCost: 0

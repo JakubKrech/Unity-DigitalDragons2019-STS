@@ -230,7 +230,7 @@ MonoBehaviour:
   regenMana: 5
   maxActionPoints: 3
   currentActionPoints: 3
-  actionPointsRegen: 1
+  actionPointsRegen: 2
   strength: 3
   agility: 1
   power: 1

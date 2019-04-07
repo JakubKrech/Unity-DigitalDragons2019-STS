@@ -326,7 +326,7 @@ public class Character : MonoBehaviour {
 
         // abilities: 0 - bite, 1 - howl, 2 - fear
         
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(0.75f);
 
         if(stunnedFor == 0){
             Character target = null;
@@ -342,14 +342,21 @@ public class Character : MonoBehaviour {
 
             while (target != null && currentActionPoints > 0) {
                 if(abilities[2].currentCooldown == 0 && currentActionPoints >= abilities[2].actionPointsCost){
-                    abilities[2].dealDamage (this, target);
+                    Character targetToBeStunned = target;
+                    foreach (Character character in BSM.battlefield.characters)
+                    {
+                        if (character.playerControlled && targetToBeStunned.currentHP < character.currentHP) targetToBeStunned = character;
+                    }
+                    abilities[2].dealDamage (this, targetToBeStunned);
                     yield return new WaitForSeconds(1.5f);
                     continue;
                 }
                 else if (immobilizedFor > 0 && abilities[1].currentCooldown == 0 && currentActionPoints >= abilities[1].actionPointsCost) {
                     foreach (Character character in BSM.battlefield.characters) {
-                        if (character.playerControlled) abilities[1].dealDamage (this, character);
-                        yield return new WaitForSeconds(1.0f);
+                        if (character.playerControlled && character.alive) {
+                            abilities[1].dealDamage (this, character);
+                            yield return new WaitForSeconds(1.0f);
+                        }
                     }
                     continue;
                 } else if (target.alive) {
@@ -376,7 +383,7 @@ public class Character : MonoBehaviour {
                         else{
                             StartCoroutine (MoveCharacter (chosenHexCell));
                         }
-                        yield return new WaitForSeconds(0.6f);
+                        yield return new WaitForSeconds(1.0f);
                     }
                     continue;
                 }

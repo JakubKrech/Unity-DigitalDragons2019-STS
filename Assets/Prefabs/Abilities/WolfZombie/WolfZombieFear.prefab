@@ -49,11 +49,11 @@ MonoBehaviour:
   manaCost: 15
   healthCost: 0
   actionPointsCost: 1
-  cooldown: 3
+  cooldown: 4
   currentCooldown: 0
-  baseDamage: 15
+  baseDamage: 5
   strengthMultiplier: 1
-  powerMultiplier: 3
+  powerMultiplier: 2
   agilityMultiplier: 1
   range: 1
   stunLength: 2

@@ -21,7 +21,7 @@ PrefabInstance:
     - target: {fileID: 1978947210589073540, guid: 59fd505f51263544089c76cf38b4f8a8,
         type: 3}
       propertyPath: abilityName
-      value: MageAA
+      value: Basic Attack
       objectReference: {fileID: 0}
     - target: {fileID: 1978947210589073540, guid: 59fd505f51263544089c76cf38b4f8a8,
         type: 3}

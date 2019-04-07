@@ -222,10 +222,10 @@ MonoBehaviour:
   charName: Undead Wolf
   level: 1
   currentEXP: 0
-  maxHP: 800
-  currentHP: 800
-  maxMana: 300
-  currentMana: 300
+  maxHP: 650
+  currentHP: 650
+  maxMana: 200
+  currentMana: 200
   regenMana: 30
   maxActionPoints: 3
   currentActionPoints: 3
