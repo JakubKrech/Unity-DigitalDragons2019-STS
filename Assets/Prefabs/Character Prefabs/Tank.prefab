@@ -220,14 +220,14 @@ MonoBehaviour:
   playerControlled: 1
   alive: 1
   characterState: 0
-  charName: Tank
+  charName: Magnus
   level: 1
   currentEXP: 0
   maxHP: 200
   currentHP: 200
   maxMana: 80
   currentMana: 80
-  regenMana: 7
+  regenMana: 5
   maxActionPoints: 3
   currentActionPoints: 3
   actionPointsRegen: 1

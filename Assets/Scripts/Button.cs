@@ -90,6 +90,7 @@ public class Button : MonoBehaviour
         if(MSM.currentMouseState == MouseStateManager.MouseStateMachine.CHOOSEACTION)
         {
             Ability chosenAbility = MSM.BattlefieldSM.CharactersByInitiative[0].abilities[abilityIndex];
+
             Character attacker = MSM.BattlefieldSM.CharactersByInitiative[0];
 
             if(!checkLocked(chosenAbility) && checkCooldown(chosenAbility) 
@@ -214,6 +215,22 @@ public class Button : MonoBehaviour
     }
 
     public void EndScreenButton()
+    {
+        SceneManager.LoadScene("EndScreen");
+    }
+
+    // Help Screen/Menu window
+    public void returnToMenuButton()
+    {
+        SceneManager.LoadScene("Menu");
+    }
+
+    public void hideMenuHelpScreenButton()
+    {
+        UIM.helpScreen.SetActive(false);
+    }
+
+    public void skipBattleButton()
     {
         SceneManager.LoadScene("EndScreen");
     }

@@ -221,14 +221,14 @@ MonoBehaviour:
   playerControlled: 1
   alive: 1
   characterState: 0
-  charName: Honey
+  charName: Bamse
   level: 1
   currentEXP: 0
   maxHP: 150
   currentHP: 150
   maxMana: 100
   currentMana: 100
-  regenMana: 15
+  regenMana: 10
   maxActionPoints: 3
   currentActionPoints: 3
   actionPointsRegen: 2

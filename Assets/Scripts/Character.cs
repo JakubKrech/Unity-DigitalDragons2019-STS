@@ -148,6 +148,9 @@ public class Character : MonoBehaviour {
                 neighbor.active = false;
             }
         }
+        this.hexCell.HexBorder.color = Color.black;
+        this.hexCell.HexBorder.enabled = false;
+        this.hexCell.active = false;
     }
 
     public void ActivateAllEnemyTiles () {
@@ -171,6 +174,9 @@ public class Character : MonoBehaviour {
                 neighbour.active = true;
             }
         }
+        this.hexCell.HexBorder.color = Color.green;
+        this.hexCell.HexBorder.enabled = true;
+        this.hexCell.active = true;
     }
     public void ActivateAvailableTilesForRange () {
         foreach (Character character in BSM.battlefield.characters) {
@@ -183,6 +189,9 @@ public class Character : MonoBehaviour {
                 character.hexCell.active = true;
             }
         }
+        this.hexCell.HexBorder.color = Color.green;
+        this.hexCell.HexBorder.enabled = true;
+        this.hexCell.active = true;
     }
     public void DeactivateAvailableTilesForRange () {
         foreach (Character character in BSM.battlefield.characters) {
@@ -190,6 +199,9 @@ public class Character : MonoBehaviour {
             character.hexCell.HexBorder.enabled = false;
             character.hexCell.active = false;
         }
+        this.hexCell.HexBorder.color = Color.black;
+        this.hexCell.HexBorder.enabled = false;
+        this.hexCell.active = false;
     }
 
     // public void DeactivateAllTiles() {
@@ -329,11 +341,17 @@ public class Character : MonoBehaviour {
             }
 
             while (target != null && currentActionPoints > 0) {
-                if (immobilizedFor > 0 && abilities[1].currentCooldown == 0 && currentActionPoints >= abilities[1].actionPointsCost) {
+                if(abilities[2].currentCooldown == 0 && currentActionPoints >= abilities[2].actionPointsCost){
+                    abilities[2].dealDamage (this, target);
+                    yield return new WaitForSeconds(1.5f);
+                    continue;
+                }
+                else if (immobilizedFor > 0 && abilities[1].currentCooldown == 0 && currentActionPoints >= abilities[1].actionPointsCost) {
                     foreach (Character character in BSM.battlefield.characters) {
                         if (character.playerControlled) abilities[1].dealDamage (this, character);
-                        yield return new WaitForSeconds(0.3f);
+                        yield return new WaitForSeconds(1.0f);
                     }
+                    continue;
                 } else if (target.alive) {
                     bool neighboringTarget = false;
                     foreach (HexCell cell in hexCell.neighbors) {
@@ -341,13 +359,18 @@ public class Character : MonoBehaviour {
                             neighboringTarget = true;
                     }
                     if (neighboringTarget == true)
-                        if (abilities[0].currentCooldown == 0) abilities[0].dealDamage (this, target);
+                        if (abilities[0].currentCooldown == 0) {
+                            abilities[0].dealDamage (this, target);
+                            yield return new WaitForSeconds(1.5f);
+                        }
                         else break;
                     else {
-                        //moveTowardsTarget (this.hexCell, target.hexCell);
                         HexCell chosenHexCell = moveTowardsTarget (this.hexCell, target.hexCell);
                         if(chosenHexCell.occupied == true){
-                            if (abilities[0].currentCooldown == 0) abilities[0].dealDamage (this, chosenHexCell.occupiedBy);
+                            if (abilities[0].currentCooldown == 0) {
+                                abilities[0].dealDamage (this, chosenHexCell.occupiedBy);
+                                yield return new WaitForSeconds(1.5f);
+                            }
                             else break;
                         }
                         else{

@@ -12,6 +12,7 @@ public class IntroController : MonoBehaviour {
     public Image leftTextArea;
     public Image rightTextArea;
     public Text middleTextField;
+    public Image gameLogo;
     public Text leftTextField;
     public Text rightTextField;
     public List<Sprite> artContainer;
@@ -22,17 +23,23 @@ public class IntroController : MonoBehaviour {
 
     // intro dialogs
 
-    private string textStart = "So here we are.\n\n" +
-        "People been dying, but now its ok.\n" +
-        "Because kids are on the mission\n" +
-        "Lets hope its gud.\n\n" +
-        "Cya.";
-    private string text0 = "text0";
-    private string text1 = "text1";
-    private string text2 = "text2";
-    private string text3 = "text3";
-    private string text4 = "text4";
-    private string text5 = "text5";
+    private string textStart = "<game studio> presents\n" + 
+        "Fenrir’s Legacy";
+    private string text0 = "We are the children of The Wolf God Fenrir.\n" +
+        "Our pack, initially weak, expanded and grew in power.";
+    private string text1 = "Our people settled on an island that was given to us by the Norse gods.\n" + 
+        "This is our home.";
+    private string text2 = "With time our people divided into clans,\n" + 
+        "settling into different areas of an island,\n" + 
+        "yet with our combined might and power,\n" +
+        "We were determined to keep enemies at bay.";
+    private string text3 = "Recently, Thornspeakers Clan druids found corruption within their forests.\n" +
+        "Angered by this, they brought it to the Council of three, seeking help.";
+    private string text4 = "The Council of Three decided to set their strongest sons and daughters\n" + 
+        "to investigate the strange corruption,\n" +
+        "hoping it will strengthen the bond between clans.";
+    private string text5 = "It is up to these heroes\n" + 
+        "to venture through the wilds and bring desired peace.";
     // private string text6 = "text6";
 
     private List<string> textContainer;
@@ -48,8 +55,9 @@ public class IntroController : MonoBehaviour {
         textContainer.Add(text4);
         textContainer.Add(text5);
 
-        middleTextField.text = textStart;
+        //middleTextField.text = textStart;
         StartCoroutine(fadeIN(middleTextField, 5));
+        StartCoroutine(fadeINGameLogo(gameLogo, 3));
     }
 
     // Update is called once per frame
@@ -71,8 +79,9 @@ public class IntroController : MonoBehaviour {
         StopAllCoroutines();
 
         if (middleTextArea.color.a > 0.0f) {
-            StartCoroutine (fadeOUT (middleTextField));
-            middleTextField.gameObject.SetActive(false);
+            //StartCoroutine (fadeOUT (middleTextField));
+            //middleTextField.gameObject.SetActive(false);
+            middleTextArea.gameObject.SetActive(false);
         }
 
         if (textOnLeft) {
@@ -151,6 +160,18 @@ public class IntroController : MonoBehaviour {
 
     IEnumerator SleepForSeconds (int sec) {
         yield return new WaitForSeconds (sec);
+    }
+
+    public IEnumerator fadeINGameLogo (Image a, float fadeSpeed) {
+
+        yield return new WaitForSeconds (2);
+
+        while (a.color.a < 1.0f) {
+            a.color = new Color (a.color.r, a.color.g,
+                a.color.b, a.color.a + (Time.deltaTime / fadeSpeed));
+
+            yield return null;
+        }
     }
 
 }

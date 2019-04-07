@@ -120,14 +120,14 @@ MonoBehaviour:
   playerControlled: 1
   alive: 1
   characterState: 0
-  charName: Mage
+  charName: Vali
   level: 1
   currentEXP: 0
   maxHP: 120
   currentHP: 120
   maxMana: 100
   currentMana: 100
-  regenMana: 15
+  regenMana: 10
   maxActionPoints: 3
   currentActionPoints: 3
   actionPointsRegen: 2

@@ -48,7 +48,7 @@ MonoBehaviour:
   description: Strucks every enemy with vocal howl dealing damage to them and healing
     him.
   manaCost: 15
-  healthCost: -25
+  healthCost: -15
   actionPointsCost: 1
   cooldown: 4
   currentCooldown: 0

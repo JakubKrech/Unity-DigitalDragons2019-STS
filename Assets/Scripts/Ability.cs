@@ -60,9 +60,9 @@ public class Ability : MonoBehaviour
     {
         int damageDealt = calculateDamage(attacker);//, attacked);
 
-        string debugMessage = attacker.charName + " has attacked " + attacked.charName + " using " + this.name + "\n" +
+        string debugMessage = attacker.charName + " has used " + this.name + " on " + attacked.charName + "\n" +
             attacker.charName + " -" + manaCost + "mana, -" + healthCost + "HP, -" + actionPointsCost + "AP\n" +
-            attacked.charName + " -" + damageDealt + "HP";
+            attacked.charName + " " + (-damageDealt) + "HP";
 
         Debug.Log(debugMessage);
         StartCoroutine(attacker.BSM.UIM.ShowFadeingMessage(debugMessage));
@@ -147,9 +147,14 @@ public class Ability : MonoBehaviour
         Text text = target.BSM.UIM.damageIndicatorTexts[index];
         RectTransform rectTransform = text.GetComponent<RectTransform>();
 
-        text.text = dmg.ToString();
-        if(dmg > 0) text.color = new Color32(255, 12, 0 , 0);
-        else text.color = new Color32(31, 217, 0 , 0);
+        if(dmg >= 0) {
+            text.text = "-" + dmg.ToString();
+            text.color = new Color32(255, 12, 0 , 0);
+        }
+        else { 
+            text.text = "+" + (-dmg).ToString();
+            text.color = new Color32(31, 217, 0 , 0);
+        }
 
         Vector3 viewportPoint = Camera.main.WorldToViewportPoint(target.transform.position);
 

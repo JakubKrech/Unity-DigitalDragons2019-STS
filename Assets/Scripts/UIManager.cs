@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
@@ -46,6 +47,9 @@ public class UIManager : MonoBehaviour
     public List<Text> damageIndicatorTexts;
     public int currentIndicatorText = 0;
 
+    [Header("Menu/Help Screen")]
+    public GameObject helpScreen;
+
     [Header("Other")]
     public Text turnCounterText;
     public Text OnScreenTextMessage;
@@ -61,7 +65,11 @@ public class UIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-    
+        if(Input.GetKeyDown(KeyCode.F1) || Input.GetKeyDown(KeyCode.H))
+        {
+            if(helpScreen.activeSelf) helpScreen.SetActive(false);
+            else helpScreen.SetActive(true);
+        }
     }
 
     public void updateHealthBar(Character character)
@@ -181,7 +189,7 @@ public class UIManager : MonoBehaviour
         }
 
 
-        yield return new WaitForSeconds (3);
+        yield return new WaitForSeconds (1);
 
         while(OnScreenTextMessage.color.a > 0.0f)
         {
@@ -195,5 +203,4 @@ public class UIManager : MonoBehaviour
         }
 
     }
-    
 }
